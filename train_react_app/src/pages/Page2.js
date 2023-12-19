@@ -6,7 +6,7 @@ export default function Page1() {
     const {id} = useParams()
   return (
     <div>
-        <h1> Page1 </h1>
+        <h1> Page2 </h1>
         <p> My id : {id} </p>
         
     </div>
