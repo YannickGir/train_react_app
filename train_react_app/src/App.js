@@ -3,6 +3,7 @@ import './App.css';
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Page1 from './pages/Page1';
 
 
 
@@ -17,7 +18,7 @@ function App() {
             <div>
                 <h2>Accueil</h2>
                 <button style={{padding:'8px', margin:'8px'}}> 
-                    <Link to={'/Page1'} >Page1</Link>
+                    <Link to={'/Page1/:id'} >Page1</Link>
                 </button> 
                 <button style={{padding:'8px', margin:'8px'}}>    
                     <Link to={'/Page2'} >Page2</Link>
@@ -25,13 +26,13 @@ function App() {
             </div>
         },
         {
-            path : '/Page1',
-            element:
+            path : '/Page1/:id',
+            element: 
             <div>
-                <h2>Page 1</h2>
-                <button style={{padding:'8px', margin:'8px'}}>  
-                    <Link to={'/'} >Retour à l'Accueil</Link>
-                </button>
+            <Page1/>
+            <button style={{padding:'8px', margin:'8px'}}>  
+                <Link to={'/'} >Retour à l'Accueil</Link>
+            </button>
             </div>
         },
         {
