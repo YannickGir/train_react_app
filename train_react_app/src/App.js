@@ -19,6 +19,7 @@ function App() {
             <div>
                 <Root/>
             </div>,
+            errorElement: <ErrorPage/>,
             children : [
                 {
                     path:'home',
@@ -52,6 +53,15 @@ function App() {
        
 
     ])
+
+    function ErrorPage() {
+        return <>
+        <h1> Page non existante ! Merci de retourner à l'accueil... </h1>
+        <button style={{padding:'8px', margin:'8px'}}>  
+                    <Link to={'/home'} >Retour à l'Accueil</Link>
+        </button>
+        </>
+    }
       
     function Root() {
         return <> 
