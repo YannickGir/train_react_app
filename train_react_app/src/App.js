@@ -41,17 +41,18 @@ function App() {
                         </div>
                         },
                         {
-                            path : ':id',
+                            path : '1/:id',
                             element:
                             <div>
                             <Page1/>
                             <button style={{padding:'8px', margin:'8px'}}>  
                                 <Link to={'/home'} >Retour à l'Accueil</Link>
                             </button>
-                            </div>
+                            </div>,
+                            loader:() => fetch('https://jsonplaceholder.typicode.com/posts?_limit=18')
                             },
                         {
-                        path : ':id',
+                        path : '2/:id',
                         element:
                         <div>
                         <Page2/>
@@ -87,10 +88,10 @@ function App() {
         return <> 
             <header>
                 <button style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'home/1'} >Page1</Link>
+                        <Link to={'home/1/1'} >Page1</Link>
                     </button> 
                     <button style={{padding:'8px', margin:'8px'}}>    
-                        <Link to={'home/2'} >Page2</Link>
+                        <Link to={'home/2/1'} >Page2</Link>
                     </button> 
             </header>
             <div>
