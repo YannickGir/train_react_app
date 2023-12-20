@@ -1,8 +1,26 @@
 {
+  "scripts": {
+    "start": "nodemon app"
+  },
   "devDependencies": {
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "express": "^4.18.2"
-  }
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YannickGir/train_react_app.git"
+  },
+  "author": "devandart",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YannickGir/train_react_app/issues"
+  },
+  "homepage": "https://github.com/YannickGir/train_react_app#readme",
+  "description": ""
 }
