@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, RouterProvider, Outlet, useRouteError } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, RouterProvider, Outlet, useRouteError, useNavigation, Spinner } from 'react-router-dom';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Home from './pages/Home';
@@ -85,6 +85,7 @@ function App() {
     }
       
     function Root() {
+        const {state} = useNavigation()
         return <> 
             <header>
                 <button style={{padding:'8px', margin:'8px'}}> 
@@ -94,7 +95,8 @@ function App() {
                         <Link to={'home/2/1'} >Page2</Link>
                     </button> 
             </header>
-            <div>
+            <div className='container my-4'>
+                {state === 'loading' && 'Loading'}
                 <Outlet/>
             </div>
         </>
