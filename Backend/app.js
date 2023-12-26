@@ -5,9 +5,9 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const UserModel = require('./models/Users')
 const connectToDatabase = require('./database/connection')
-connectToDatabase()
+connectToDatabase(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@cluster1.qzxbj9m.mongodb.net//?retryWrites=true&w=majority/test_react`)
 
-// Call the function to connect to the database
+//Call the function to connect to the database
 // connectToDatabase();
 
 
