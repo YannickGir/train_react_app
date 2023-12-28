@@ -10,6 +10,9 @@ const { error } = require('console')
 
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
+
+app.use('api/v1', userRoute)
+
 connectToDatabase(`mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@cluster1.qzxbj9m.mongodb.net//?retryWrites=true&w=majority/test_react`, (error)=> {
     if(error) {
         console.log('error connexion to databse');
