@@ -3,7 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const UserModel = require('./models/Users')
-const connectToDatabase = require('./database/connection')
+const { connectToDatabase, getDb, closeConnection } = require('./database/connection');
 const userRoute = require('./routes/user_routes')
 const { error } = require('console')
 

@@ -1,4 +1,4 @@
-const {MongoClient} = require('mongodb')
+const {MongoClient, Db} = require('mongodb')
 
 var client = null;
 
@@ -19,16 +19,26 @@ function connectToDatabase(url, callback) {
     }
     }
     
-    function bd(){
-        return new Db(client, 'dbOk')
+    function getDb() {
+        if (client) {
+            return client.db('dbOk');
+        } else {
+            throw new Error('Not connected to the database');
+        }
     }
     
-    function closeConnection () {
-    if (client) {
-        client.close();
-        client = null;
-    }
+    function closeConnection() {
+        if (client) {
+            client.close();
+            client = null;
+        }
     }
     
-    module.exports=(connectToDatabase, bd, closeConnection)
+    module.exports = {
+        connectToDatabase,
+        getDb,
+        closeConnection,
+    };
+    
+    // module.exports=(connectToDatabase, getDb, closeConnection)
     
