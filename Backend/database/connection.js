@@ -1,44 +1,26 @@
-const {MongoClient, Db} = require('mongodb')
+const mongoose = require('mongoose');
+require('dotenv').config();
+const dbURL = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@cluster0.rhyjx.mongodb.net/test?retryWrites=true&w=majority`;
 
-var client = null;
-
-function connectToDatabase(url, callback) {
-    if (client ==null) {
-    client = new MongoClient(url);
-    
-    client.connect((err)=>{
-        if (err){
-            client=null
-            callback(err)
-        } else { 
-            callback()
+async function connectToDatabase() {
+    try {
+        if(mongoose.connection.readyState != 1) {
+            await mongoose.connect(dbURL)
+            console.log('connected !');
         }
-    })
-    }else{
-        callback()
-    }
-    }
-    
-    function getDb() {
-        if (client) {
-            return client.db('dbOk');
-        } else {
-            throw new Error('Not connected to the database');
+        else {
+            console.log('already connected !');
         }
+       
+    }catch(err) {
+        console.log('not connected' , err);
+        process.exit(1);
     }
-    
-    function closeConnection() {
-        if (client) {
-            client.close();
-            client = null;
-        }
     }
     
     module.exports = {
         connectToDatabase,
-        getDb,
-        closeConnection,
     };
     
-    // module.exports=(connectToDatabase, getDb, closeConnection)
+
     

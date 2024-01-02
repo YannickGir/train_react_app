@@ -3,19 +3,9 @@ const client = require('../database/connection')
 
 const addUser = async (req, res) =>{
     try {
-        let user = new User({
-            name: req.body.name,
-            email:req.body.email,
-            age :req.body.age,  
-        }
-         
-        );
-        let result = await client
-        .db()
-        .collection("users")
-        .inserOne(user)
+        const newUser = await UserModel.create(req.body);
 
-        res.status(200).json(result)
+        res.status(201).send(newUser);
 
     } catch (error) {
         console.log((error));
