@@ -1,22 +1,24 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import SignUpForm from '../components/SingUpForm'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
     const {id} = useParams()
-    const handleSignUp = async (username: string, password_hash: string, email:string) => {
-        console.log('Tentative de connexion avec username :', username, 'et password :', password_hash);
+    const navigate = useNavigate();
+    const handleSignUp = async (name, email) => {
+        
       
         try {
-          const response = await axios.post("http://localhost:8800/api/signUp", {
-            username,
-            password_hash,
+          const response = await axios.post("http://localhost:8800/", {
+            name,
             email,
           });
     
           if (response.status === 200) {
             // L'utilisateur est inscrit avec succès.
-            router.push('Dashboard'); // Exemple de redirection vers la page de tableau de bord.
+            navigate("/home") ;
           } else {
             // Gérer les erreurs d'inscription ici.
             console.error('Erreur d\'inscription :', response.data);

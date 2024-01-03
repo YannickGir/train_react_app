@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 const SignUpForm= ({ onSignUp }) => {
     const [userDatas, setUserDatas] = useState({
-        username: "",
+        name: "",
         email: "",
         // password_hash: "",
         // id: 0,
@@ -18,7 +18,7 @@ const SignUpForm= ({ onSignUp }) => {
     }
     const handleClick = async (e) => {
         e.preventDefault();
-        onSignUp(userDatas.username, userDatas.password_hash, userDatas.email);
+        onSignUp(userDatas.name, userDatas.email);
     }
 
     return (
@@ -27,7 +27,7 @@ const SignUpForm= ({ onSignUp }) => {
             <form className='forms'>
     <label>
     <h2> Username </h2> 
-        <input onChange={handleChange} className='inputform' type="text" name="username" value={userDatas.username} />
+        <input onChange={handleChange} className='inputform' type="text" name="name" value={userDatas.username} />
     </label>
 
     <label>
@@ -35,10 +35,10 @@ const SignUpForm= ({ onSignUp }) => {
         <input onChange={handleChange} className='inputform' type="text" name="email" value={userDatas.email}/>
     </label>
 
-    <label>
+    {/* <label>
         <h2> password </h2> 
         <input onChange={handleChange} className='inputform' type="text" name="password_hash" value={userDatas.password_hash} />
-    </label>
+    </label> */}
 
     </form>
     <button onClick={handleClick} >Inscription</button> 
