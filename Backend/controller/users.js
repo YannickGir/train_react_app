@@ -1,5 +1,6 @@
 const {User} = require("../models/Users")
-const client = require('../database/connection')
+const client = require('../database/connection');
+const UserModel = require("../models/Users");
 
 const addUser = async (req, res) =>{
     try {
