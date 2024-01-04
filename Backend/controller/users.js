@@ -11,7 +11,7 @@ const addUser = async (req, res) =>{
               res.status(409).json({ error: 'Cet email est déjà utilisé. Veuillez choisir un autre.' });
 
             } else {
-              console.log(`L'e-mail ${emailToCheck} n'existe pas dans la collection.`);
+              console.log(`L'e-mail ${req.body.email} n'existe pas dans la collection.`);
                const values = 
             [
                 req.body.name,
