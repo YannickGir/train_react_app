@@ -5,6 +5,19 @@ const UserModel = require("../models/Users");
 const addUser = async (req, res) =>{
     
     try {
+        db.users.findOne({ email: req.body.email }, (err, user) => {
+            if (err) {
+              console.error('Erreur lors de la recherche de l\'e-mail :', err);
+            }
+          
+            if (user) {
+              console.log(`L'e-mail ${req.body.email} existe dans la collection.`);
+              // Faire quelque chose si l'e-mail existe
+            } else {
+              console.log(`L'e-mail ${emailToCheck} n'existe pas dans la collection.`);
+              // Faire quelque chose si l'e-mail n'existe pas
+            }
+          });
         const values = 
             [
                 req.body.name,
