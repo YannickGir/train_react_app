@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, Rout
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Home from './pages/Home';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -86,6 +86,26 @@ function App() {
       
     function Root() {
         const {state} = useNavigation()
+        const navigate = useNavigate();
+        const handleLogout = async () => {
+            try {
+              const response = await fetch('http://localhost:8800/api/logout', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              });
+              const userSession = localStorage.getItem('userSession');
+              if (userSession) {
+                localStorage.removeItem('userSession');
+                navigate('/home'); 
+              } else {
+                console.error('Erreur lors de la déconnexion :', response.statusText);
+              }
+            } catch (error) {
+              console.error('Erreur lors de la déconnexion :', error);
+            }
+          };
         return <> 
             <header>
                 <button style={{padding:'8px', margin:'8px'}}> 
@@ -94,6 +114,7 @@ function App() {
                     <button style={{padding:'8px', margin:'8px'}}>    
                         <Link to={'home/2/1'} >Page2</Link>
                     </button> 
+                    <button onClick={handleLogout}>Déconnexion</button>
             </header>
             <div className='container my-4'>
                 {state === 'loading' && 'Loading'}
