@@ -4,7 +4,7 @@ import SignUpForm from '../components/SingUpForm'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
-
+import '../App.css';
 
 export default function Home() {
     const {id} = useParams()
@@ -44,10 +44,10 @@ export default function Home() {
       
       };
   return (
-    <div>
+    <div >
         <h1> HOME </h1>
         <p> My id : {id} </p>
-        <Modal
+        <Modal className='modal'
         
   isOpen={modalIsOpen}
   onRequestClose={() => setModalIsOpen(false)}
