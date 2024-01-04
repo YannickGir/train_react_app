@@ -89,18 +89,12 @@ function App() {
         const navigate = useNavigate();
         const handleLogout = async () => {
             try {
-              const response = await fetch('http://localhost:8800/api/logout', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              });
               const userSession = localStorage.getItem('userSession');
               if (userSession) {
                 localStorage.removeItem('userSession');
                 navigate('/home'); 
               } else {
-                console.error('Erreur lors de la déconnexion :', response.statusText);
+                console.error('Erreur lors de la déconnexion');
               }
             } catch (error) {
               console.error('Erreur lors de la déconnexion :', error);
