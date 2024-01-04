@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import SignUpForm from '../components/SingUpForm'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,8 @@ export default function Home() {
     
           if (response.status === 200) {
             // L'utilisateur est inscrit avec succès.
-            navigate("/home") ;
+            localStorage.setItem('userSession', 'connected');
+            navigate("1/:id") ;
           } else {
             // Gérer les erreurs d'inscription ici.
             console.error('Erreur d\'inscription :', response.data);
