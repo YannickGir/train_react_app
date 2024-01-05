@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Express
+dist/
+build/
+
+# MongoDB
+/data/db
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+logs
+*.log.*
+*.access.log
+
+# Dependency directories
+.jenkins/
+
+# Debug
+.DS_Store
+Thumbs.db
+
+# npm
+*.md
+*.markdown
+npm-debug.log*
+*.log

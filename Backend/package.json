@@ -1,8 +1,11 @@
 {
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "test": "jest --detectOpenHandles --testTimeout 30000",
+    "test:watch": "jest --watchAll"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "typescript": "^5.3.3"
   },
   "dependencies": {
@@ -26,5 +29,8 @@
   },
   "homepage": "https://github.com/YannickGir/train_react_app#readme",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "jest": {
+    "testTimeout": 30000 
+  }
 }
