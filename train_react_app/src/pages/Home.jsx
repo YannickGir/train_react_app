@@ -16,9 +16,31 @@ export default function Home() {
     //Créer le controller signin avec la route qui l'utilise
 
 
+const handleSignIn = async(name, email) => {
+    try {
+        const response = await axios.post("http://localhost:8800/signIn", {
+            name,
+            email,
+          });
+          if (response.status >= 200 && response.status < 300) {
+            localStorage.setItem('userSession', 'connected');
+            navigate("1/:id") ;
+          }else {
+            console.error('Erreur de la connection :', response.data);
+          }
+    } catch (err) {
+        if (err.response && err.response.status === 409) {
+            console.log('merci d\'inscrire un identifiant valide');
+            setModalIsOpen(true);
+          } else {
+            console.error('Erreur lors de la connection :', err);
+          }
+    }
+}
+
     const handleSignUp = async (name, email) => {
         try {
-          const response = await axios.post("http://localhost:8800/", {
+          const response = await axios.post("http://localhost:8800/signUp", {
             name,
             email,
           });
@@ -29,11 +51,11 @@ export default function Home() {
             setModalIsOpen(true)
           }
           if (response.status >= 200 && response.status < 300) {
-            // L'utilisateur est inscrit avec succès.
+            
             localStorage.setItem('userSession', 'connected');
             navigate("1/:id") ;
           } else {
-            // Gérer les erreurs d'inscription ici.
+            
             console.error('Erreur d\'inscription :', response.data);
           }
         } catch (err) {
@@ -42,7 +64,7 @@ export default function Home() {
                 console.log('Détails de la réponse du serveur :', err.response.data);
                 setModalIsOpen(true);
               } else {
-                // Gérer d'autres erreurs.
+                
                 console.error('Erreur lors de l\'inscription :', err);
               }
         }
@@ -63,7 +85,7 @@ export default function Home() {
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
         {/* <SignUpForm onSignUp={handleSignUp}/> */}
-        <SignInForm onSignUp={handleSignUp}/>
+        <SignInForm onSignUp={handleSignIn}/>
         
         
     </div>

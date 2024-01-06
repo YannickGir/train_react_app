@@ -1,11 +1,11 @@
 
 const express = require('express')
 const router = express.Router()
-const {addUser} = require('../controller/users')
+const {addUser, logUser} = require('../controller/users')
 
 
-router.post('/', addUser)
-
+router.post('/signUp', addUser)
+router.post('/signIn', logUser)
 // router.get('/getUsers', (req, res)=>{
 //     UserModel.find()
 //     .then(users => res.json(users))
