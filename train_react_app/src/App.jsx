@@ -7,6 +7,7 @@ import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Home from './pages/Home';
 import { useNavigate } from 'react-router-dom';
+import SignInForm from './components/SignInForm';
 
 
 
@@ -112,6 +113,7 @@ function App() {
             </header>
             <div className='container my-4'>
                 {state === 'loading' && 'Loading'}
+                <SignInForm/>
                 <Outlet/>
             </div>
         </>

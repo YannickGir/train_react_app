@@ -1,15 +1,20 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
-import SignUpForm from '../components/SingUpForm'
+import SignUpForm from '../components/SignUpForm'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
+import SignInForm from '../components/SignInForm';
 
 export default function Home() {
     const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    //RESTE A AJOUTER handleSignIn ici et mettre la logique signup ailleurs dans une nouvelle page signUp 
+    //Créer le controller signin avec la route qui l'utilise
+
 
     const handleSignUp = async (name, email) => {
         try {
@@ -57,7 +62,9 @@ export default function Home() {
   <p>Vous pouvez vous connecter avec vos identifiants ou bien choisir un autre email pour vous inscrire</p>
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
-        <SignUpForm onSignUp={handleSignUp}/>
+        {/* <SignUpForm onSignUp={handleSignUp}/> */}
+        <SignInForm onSignUp={handleSignUp}/>
+        
         
     </div>
   )
