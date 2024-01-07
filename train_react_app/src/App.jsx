@@ -7,8 +7,8 @@ import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
 import Home from './pages/Home';
 import { useNavigate } from 'react-router-dom';
-import SignInForm from './components/SignInForm';
 import SignUpPage from './pages/SignUpPage';
+import SignInPage from './pages/SignInPage';
 
 
 
@@ -27,8 +27,18 @@ function App() {
                     <div>
                     <SignUpPage/>
                     <button style={{padding:'8px', margin:'8px'}}>  
-                        <Link to={'/home'} >Retour à l'Accueil</Link>
+                        <Link to={'/SignInPage'} >Se connecter</Link>
                     </button>
+                    </div>
+                    },
+                {
+                     path : 'SignInPage',
+                    element:
+                    <div>
+                    <SignInPage/>
+                    <button style={{padding:'8px', margin:'8px'}}>  
+                            <Link to={'/SignUpPage'} >s'inscrire</Link>
+                        </button>
                     </div>
                     },
                 {
@@ -47,9 +57,7 @@ function App() {
                         element: 
                         <div>
                         <Home/>
-                        <button style={{padding:'8px', margin:'8px'}}>  
-                            <Link to={'/SignUpPage'} >s'inscrire</Link>
-                        </button>
+                        
                         </div>
                         },
                         {
@@ -119,7 +127,7 @@ function App() {
           if (!userSessioState) {
             verseHeader = (<header className='header'>
             <button style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'home'} >Se connecter</Link>
+                        <Link to={'SignInPage'} >Se connecter</Link>
                     </button>  
         </header>)
           } else if (userSessioState) {

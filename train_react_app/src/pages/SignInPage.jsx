@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import '../App.css';
 import SignInForm from '../components/SignInForm';
 
-export default function Home() {
+export default function SignInPage() {
     const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -19,7 +19,7 @@ const handleSignIn = async(name, email) => {
           });
           if (response.status >= 200 && response.status < 300) {
             localStorage.setItem('userSession', 'connected');
-            navigate("1/:id") ;
+            navigate("Home") ;
           }else {
             
             setModalIsOpen(true);
@@ -37,7 +37,7 @@ const handleSignIn = async(name, email) => {
 
   return (
     <div >
-        <h1> HOME </h1>
+        <h1> Connectez vous ! </h1>
         <Modal className='modal'
         
   isOpen={modalIsOpen}
@@ -52,7 +52,7 @@ const handleSignIn = async(name, email) => {
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
         {/* <SignUpForm onSignUp={handleSignUp}/> */}
-        
+        <SignInForm onSignIn={handleSignIn}/>
         
         
     </div>
