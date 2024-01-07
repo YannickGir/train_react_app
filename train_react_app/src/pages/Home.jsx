@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import { useParams } from 'react-router-dom'
-import SignUpForm from '../components/SignUpForm'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -11,10 +10,6 @@ export default function Home() {
     const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    //RESTE A AJOUTER handleSignIn ici et mettre la logique signup ailleurs dans une nouvelle page signUp 
-    //Créer le controller signin avec la route qui l'utilise
-
 
 const handleSignIn = async(name, email) => {
     try {
@@ -40,38 +35,6 @@ const handleSignIn = async(name, email) => {
     }
 }
 
-    // const handleSignUp = async (name, email) => {
-    //     try {
-    //       const response = await axios.post("http://localhost:8800/signUp", {
-    //         name,
-    //         email,
-    //       });
-    //       console.log(response.data); 
-    //       console.log(response.status);
-    //       if (response.status === 409) {
-    //         console.log('utilisateur existe déjà');
-    //         setModalIsOpen(true)
-    //       }
-    //       if (response.status >= 200 && response.status < 300) {
-            
-    //         localStorage.setItem('userSession', 'connected');
-    //         navigate("1/:id") ;
-    //       } else {
-            
-    //         console.error('Erreur d\'inscription :', response.data);
-    //       }
-    //     } catch (err) {
-    //         if (err.response && err.response.status === 409) {
-    //             console.log('utilisateur existe déjà');
-    //             console.log('Détails de la réponse du serveur :', err.response.data);
-    //             setModalIsOpen(true);
-    //           } else {
-                
-    //             console.error('Erreur lors de l\'inscription :', err);
-    //           }
-    //     }
-      
-    //   };
   return (
     <div >
         <h1> HOME </h1>
@@ -80,10 +43,13 @@ const handleSignIn = async(name, email) => {
         
   isOpen={modalIsOpen}
   onRequestClose={() => setModalIsOpen(false)}
-  contentLabel="Exemple de boîte de dialogue"
+  contentLabel="boîte de dialogue"
 >
-  <h2>L'email existe déjà !</h2>
-  <p>Vous pouvez vous connecter avec vos identifiants ou bien choisir un autre email pour vous inscrire</p>
+  <h2>L'email n'existe pas !</h2>
+  <p>Vous pouvez vous inscrire en cliquant sur le bouton s'inscrire !</p>
+  <button style={{padding:'8px', margin:'8px'}}> 
+                        <Link to={'/SignUpPage'} >S'inscrire</Link>
+                    </button> 
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
         {/* <SignUpForm onSignUp={handleSignUp}/> */}

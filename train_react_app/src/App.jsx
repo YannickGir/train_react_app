@@ -8,6 +8,7 @@ import Page2 from './pages/Page2';
 import Home from './pages/Home';
 import { useNavigate } from 'react-router-dom';
 import SignInForm from './components/SignInForm';
+import SignUpPage from './pages/SignUpPage';
 
 
 
@@ -20,6 +21,16 @@ function App() {
                 <Root/>,
             errorElement: <ErrorPage/>,
             children : [
+                {
+                    path : 'SignUpPage',
+                    element:
+                    <div>
+                    <SignUpPage/>
+                    <button style={{padding:'8px', margin:'8px'}}>  
+                        <Link to={'/home'} >Retour à l'Accueil</Link>
+                    </button>
+                    </div>
+                    },
                 {
                     path:'home',
                     element: <div className="row">
@@ -37,7 +48,7 @@ function App() {
                         <div>
                         <Home/>
                         <button style={{padding:'8px', margin:'8px'}}>  
-                            <Link to={'/home'} >Retour à l'Accueil</Link>
+                            <Link to={'/SignUpPage'} >s'inscrire</Link>
                         </button>
                         </div>
                         },
@@ -61,13 +72,14 @@ function App() {
                             <Link to={'/home'} >Retour à l'Accueil</Link>
                         </button>
                         </div>
-                        }
+                        },
+                        
                     ]
                 }
                  
             ]
         },
-       
+      
 
     ])
 
