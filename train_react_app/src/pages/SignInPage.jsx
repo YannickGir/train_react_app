@@ -19,7 +19,7 @@ const handleSignIn = async(name, email) => {
           });
           if (response.status >= 200 && response.status < 300) {
             localStorage.setItem('userSession', 'connected');
-            navigate("Home") ;
+            navigate("/Home") ;
           }else {
             
             setModalIsOpen(true);

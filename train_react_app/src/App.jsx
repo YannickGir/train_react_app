@@ -113,7 +113,7 @@ function App() {
               const userSession = localStorage.getItem('userSession');
               if (userSession) {
                 localStorage.removeItem('userSession');
-                navigate('/home'); 
+                navigate('/'); 
               } else {
                 console.error('Erreur lors de la déconnexion');
               }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ export default function Home() {
     const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
-
+    const [authenticated, setAuthenticated] = useState(false);
 const handleSignIn = async(name, email) => {
     try {
         const response = await axios.post("http://localhost:8800/signIn", {
@@ -34,6 +34,15 @@ const handleSignIn = async(name, email) => {
           }
     }
 }
+
+useEffect(() => {
+    const userSession = localStorage.getItem('userSession');
+    if (userSession) {
+      setAuthenticated(true);
+    } else {
+      navigate('/'); // Redirigez vers la page de connexion si l'utilisateur n'est pas authentifié
+    }
+  }, []);
 
   return (
     <div >
