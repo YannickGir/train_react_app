@@ -38,7 +38,6 @@ const handleSignIn = async(name, email) => {
   return (
     <div >
         <h1> HOME </h1>
-        <p> My id : {id} </p>
         <Modal className='modal'
         
   isOpen={modalIsOpen}

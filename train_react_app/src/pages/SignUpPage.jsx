@@ -46,7 +46,6 @@ export default function SignUpPage() {
   return (
     <div >
         <h1> Inscription </h1>
-        <p> My id : {id} </p>
         <Modal className='modal'
         
   isOpen={modalIsOpen}
