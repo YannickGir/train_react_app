@@ -26,10 +26,12 @@ const handleSignIn = async(name, email) => {
             localStorage.setItem('userSession', 'connected');
             navigate("1/:id") ;
           }else {
+            
+            setModalIsOpen(true);
             console.error('Erreur de la connection :', response.data);
           }
     } catch (err) {
-        if (err.response && err.response.status === 409) {
+        if (err.response && err.response.status === 401) {
             console.log('merci d\'inscrire un identifiant valide');
             setModalIsOpen(true);
           } else {
@@ -38,38 +40,38 @@ const handleSignIn = async(name, email) => {
     }
 }
 
-    const handleSignUp = async (name, email) => {
-        try {
-          const response = await axios.post("http://localhost:8800/signUp", {
-            name,
-            email,
-          });
-          console.log(response.data); 
-          console.log(response.status);
-          if (response.status === 409) {
-            console.log('utilisateur existe déjà');
-            setModalIsOpen(true)
-          }
-          if (response.status >= 200 && response.status < 300) {
+    // const handleSignUp = async (name, email) => {
+    //     try {
+    //       const response = await axios.post("http://localhost:8800/signUp", {
+    //         name,
+    //         email,
+    //       });
+    //       console.log(response.data); 
+    //       console.log(response.status);
+    //       if (response.status === 409) {
+    //         console.log('utilisateur existe déjà');
+    //         setModalIsOpen(true)
+    //       }
+    //       if (response.status >= 200 && response.status < 300) {
             
-            localStorage.setItem('userSession', 'connected');
-            navigate("1/:id") ;
-          } else {
+    //         localStorage.setItem('userSession', 'connected');
+    //         navigate("1/:id") ;
+    //       } else {
             
-            console.error('Erreur d\'inscription :', response.data);
-          }
-        } catch (err) {
-            if (err.response && err.response.status === 409) {
-                console.log('utilisateur existe déjà');
-                console.log('Détails de la réponse du serveur :', err.response.data);
-                setModalIsOpen(true);
-              } else {
+    //         console.error('Erreur d\'inscription :', response.data);
+    //       }
+    //     } catch (err) {
+    //         if (err.response && err.response.status === 409) {
+    //             console.log('utilisateur existe déjà');
+    //             console.log('Détails de la réponse du serveur :', err.response.data);
+    //             setModalIsOpen(true);
+    //           } else {
                 
-                console.error('Erreur lors de l\'inscription :', err);
-              }
-        }
+    //             console.error('Erreur lors de l\'inscription :', err);
+    //           }
+    //     }
       
-      };
+    //   };
   return (
     <div >
         <h1> HOME </h1>
@@ -85,7 +87,7 @@ const handleSignIn = async(name, email) => {
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
         {/* <SignUpForm onSignUp={handleSignUp}/> */}
-        <SignInForm onSignUp={handleSignIn}/>
+        <SignInForm onSignIn={handleSignIn}/>
         
         
     </div>

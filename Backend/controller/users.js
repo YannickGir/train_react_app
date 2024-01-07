@@ -37,6 +37,18 @@ const addUser = async (req, res) =>{
 }
 
 const logUser = async (req, res) =>{
-    
+    try { 
+        const user = await UserModel.findOne({ email: req.body.email })
+        if (user) {
+            res.status(200).json({ message: "L'utilisateur est existant et peut être connecté !" });
+            console.log(user);
+        } 
+        else {
+            res.status(401).json({message:'utilisateur non autorisé'})
+        }
+    }  catch (error) {
+        console.log((error));
+        res.status(500).json({error:'internal server Error'});
+    }  
 }
 module.exports = {addUser, logUser};

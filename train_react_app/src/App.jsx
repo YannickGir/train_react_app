@@ -113,7 +113,7 @@ function App() {
             </header>
             <div className='container my-4'>
                 {state === 'loading' && 'Loading'}
-                <SignInForm/>
+                
                 <Outlet/>
             </div>
         </>
