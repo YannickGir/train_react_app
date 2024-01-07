@@ -114,7 +114,7 @@ function App() {
             }
           };
         return <> 
-            <header>
+            <header className='header'>
                 <button style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'home/1/1'} >Page1</Link>
                     </button> 

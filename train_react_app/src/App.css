@@ -1,6 +1,16 @@
 .App {
   text-align: center;
-  background-color: #3498db;
+  background-image: url(https://images.unsplash.com/photo-1704377133466-784bc482e366?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+background-size: cover;
+height: 80vh;
+width: 30vw;
+color: white;
+margin: auto;
+margin-top: 5%;
+}
+
+.header{
+    background-color: #282c34;
 }
 
 .App-logo {
