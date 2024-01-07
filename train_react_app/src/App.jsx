@@ -113,16 +113,28 @@ function App() {
               console.error('Erreur lors de la déconnexion :', error);
             }
           };
+
+          var verseHeader = <></>
+          const userSessioState = localStorage.getItem('userSession')
+          if (!userSessioState) {
+            verseHeader = (<header className='header'>
+            <button style={{padding:'8px', margin:'8px'}}> 
+                        <Link to={'home'} >Se connecter</Link>
+                    </button>  
+        </header>)
+          } else if (userSessioState) {
+            verseHeader = (<header className='header'>
+            <button style={{padding:'8px', margin:'8px'}}> 
+                    <Link to={'home/1/1'} >Page1</Link>
+                </button> 
+                <button style={{padding:'8px', margin:'8px'}}>    
+                    <Link to={'home/2/1'} >Page2</Link>
+                </button> 
+                <button onClick={handleLogout}>Déconnexion</button>
+        </header>)
+            }
         return <> 
-            <header className='header'>
-                <button style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'home/1/1'} >Page1</Link>
-                    </button> 
-                    <button style={{padding:'8px', margin:'8px'}}>    
-                        <Link to={'home/2/1'} >Page2</Link>
-                    </button> 
-                    <button onClick={handleLogout}>Déconnexion</button>
-            </header>
+            {verseHeader}
             <div className='container my-4'>
                 {state === 'loading' && 'Loading'}
                 
