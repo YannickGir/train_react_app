@@ -15,7 +15,7 @@ export default function Page1() {
         }
       }, [navigate]);
   return (
-    <div>
+    <div className='page2'>
         <h1> Page2 </h1>
         <p> My id : {id} </p>
     

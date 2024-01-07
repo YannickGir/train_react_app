@@ -45,7 +45,7 @@ useEffect(() => {
   }, []);
 
   return (
-    <div >
+    <div className='home' >
         <h1> HOME </h1>
         <Modal className='modal'
         
