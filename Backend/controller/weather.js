@@ -6,13 +6,14 @@ const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/s
 
 const getWeather = async ()=> {
     
-    const weatherDatas = await axios.get(url)
-    .then(response => {
-        console.log('Réponse de l\'API :', response.data.queryCost );
-      })
-      .catch(error => {
+    try {
+        const response = await axios.get(url);
+        console.log('Réponse de l\'API :', response.data.queryCost);
+        return response.data; 
+    } catch (error) {
         console.error('Erreur lors de l\'appel API :', error);
-      });
-}
+        throw error; 
+    }
+};
 
 module.exports = {getWeather};

@@ -10,8 +10,8 @@ router.post('/signIn', logUser)
 router.get('/weather', async (req, res) => {
     try {
         const weather = await getWeather();
-        console.log('from router ' + weather.data);
-        res.status(200).send(weather.data);
+        res.status(200).send(weather);
+        console.log('from router ' + weather.days[0].datetime);
     } catch (err) {
         res.json(err);
     }
