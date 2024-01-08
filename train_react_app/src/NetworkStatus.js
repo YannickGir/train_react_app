@@ -7,7 +7,7 @@ const NetworkStatus = () => {
     <div>
         <h2> Network Status</h2>
         <p
-            Style={{color: networkStatus ? 'green' : 'red'}}
+            style={{color: networkStatus ? 'green' : 'red'}}
         > {networkStatus ? 'You are online !' : 'You are offline...'} 
         </p>
 

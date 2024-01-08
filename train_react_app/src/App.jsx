@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import { useNavigate } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
+import NetworkStatus from './NetworkStatus';
 
 
 
@@ -21,6 +22,11 @@ function App() {
                 <Root/>,
             errorElement: <ErrorPage/>,
             children : [
+                {
+                    path : 'NetworkStatus',
+                    element :
+                    <NetworkStatus/>
+                },
                 {
                     path : 'SignUpPage',
                     element:
@@ -125,21 +131,25 @@ function App() {
           var verseHeader = <></>
           const userSessioState = localStorage.getItem('userSession')
           if (!userSessioState) {
-            verseHeader = (<header className='header'>
-            <button style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'SignInPage'} >Se connecter</Link>
-                    </button>  
-        </header>)
+            verseHeader = (
+            <header className='header'>
+                <NetworkStatus/>
+                <button style={{padding:'8px', margin:'8px'}}> 
+                            <Link to={'SignInPage'} >Se connecter</Link>
+                </button>  
+            </header>)
           } else if (userSessioState) {
-            verseHeader = (<header className='header'>
-            <button style={{padding:'8px', margin:'8px'}}> 
-                    <Link to={'home/1/1'} >Page1</Link>
+            verseHeader = (
+            <header className='header'>
+                <NetworkStatus/>
+                <button style={{padding:'8px', margin:'8px'}}> 
+                        <Link to={'home/1/1'} >Page1</Link>
                 </button> 
                 <button style={{padding:'8px', margin:'8px'}}>    
                     <Link to={'home/2/1'} >Page2</Link>
                 </button> 
                 <button onClick={handleLogout}>Déconnexion</button>
-        </header>)
+            </header>)
             }
         return <> 
             {verseHeader}
@@ -153,7 +163,7 @@ function App() {
     }
    
 
-  return (
+  return ( 
     <div className="App">
    <RouterProvider router={Router}/>
     </div>
