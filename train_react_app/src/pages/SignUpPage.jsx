@@ -26,7 +26,7 @@ export default function SignUpPage() {
           if (response.status >= 200 && response.status < 300) {
             
             localStorage.setItem('userSession', 'connected');
-            navigate("1/:id") ;
+            navigate("/home") ;
           } else {
             
             console.error('Erreur d\'inscription :', response.data);

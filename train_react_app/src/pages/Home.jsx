@@ -1,52 +1,48 @@
 import React, {useEffect, useState} from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
-import SignInForm from '../components/SignInForm';
 
 export default function Home() {
-    const {id} = useParams()
+    // const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
-const handleSignIn = async(name, email) => {
-    try {
-        const response = await axios.post("http://localhost:8800/signIn", {
-            name,
-            email,
-          });
-          if (response.status >= 200 && response.status < 300) {
-            localStorage.setItem('userSession', 'connected');
-            navigate("1/:id") ;
-          }else {
-            
-            setModalIsOpen(true);
-            console.error('Erreur de la connection :', response.data);
-          }
-    } catch (err) {
-        if (err.response && err.response.status === 401) {
-            console.log('merci d\'inscrire un identifiant valide');
-            setModalIsOpen(true);
-          } else {
-            console.error('Erreur lors de la connection :', err);
-          }
-    }
-}
 
+    const [dateNow, setDateNow] = useState("");
+    const [timeHourNow, setTimeHourNow] = useState ("");
+    const [timeMinutesNow, setTimeMinutesNow] = useState();
 useEffect(() => {
     const userSession = localStorage.getItem('userSession');
     if (userSession) {
       setAuthenticated(true);
+      const getDateAndHour = () => {
+        setDateNow(new Date().toLocaleDateString());
+        setTimeHourNow(new Date().getHours());
+        setTimeMinutesNow(new Date().getMinutes());
+      }
+      getDateAndHour()
+
+      const intervalId = setInterval(() => {
+        getDateAndHour();
+      }, 60000);
+  
+        const getWeather = async()=> {
+            const response = await axios.get("http://localhost:8800/weather")
+        }
+      return () => clearInterval(intervalId);
     } else {
-      navigate('/'); // Redirigez vers la page de connexion si l'utilisateur n'est pas authentifié
+      navigate('/');
     }
-  }, []);
+  }, [navigate, setAuthenticated]);
 
   return (
     <div className='home' >
         <h1> HOME </h1>
+        <h2> le {dateNow}</h2>
+        <h3>{timeHourNow} : {timeMinutesNow}</h3>
         <Modal className='modal'
         
   isOpen={modalIsOpen}
@@ -57,12 +53,9 @@ useEffect(() => {
   <p>Vous pouvez vous inscrire en cliquant sur le bouton s'inscrire !</p>
   <button style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'/SignUpPage'} >S'inscrire</Link>
-                    </button> 
+    </button> 
   <button onClick={() => setModalIsOpen(false)}>Fermer</button>
 </Modal>
-        {/* <SignUpForm onSignUp={handleSignUp}/> */}
-        
-        
         
     </div>
   )
