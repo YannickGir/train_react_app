@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 
 const CitiesList = ({onselect}) => {
     const cities = ["Marseille", "Paris", "New York"]
@@ -6,14 +7,19 @@ const CitiesList = ({onselect}) => {
 
     const handleChange = (e) => {
         const { value } = e.target;
+        try {
+          axios.post('http://localhost:8800/city', {
+            selectedCity: value
+          });
+        } catch (error) {
+          console.error('Erreur lors de la requête vers le backend :', error);
+        }
+    
         setSelectedCity(value);
-    }
+      };
 
-    const handleClick = async (e) => {
-        e.preventDefault();
-        onselect(selectedCity);
-    }
-
+        
+    
   return (
     
         <div className='wrapper' >

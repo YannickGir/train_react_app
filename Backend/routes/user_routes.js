@@ -7,6 +7,15 @@ const { getWeather } = require('../controller/weather')
 
 router.post('/signUp', addUser)
 router.post('/signIn', logUser)
+router.post('/city', async (req, res) => {
+    try {
+        console.log('Received request to /city');
+        const selectedCity = req.body.selectedCity;
+    console.log('from router cityfromfront ' + selectedCity);
+    } catch (err) {
+        res.json(err);
+    }
+});
 router.get('/weather', async (req, res) => {
     try {
         const weather = await getWeather();
