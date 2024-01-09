@@ -9,21 +9,23 @@ const UseSessionExpiration = ({ children }) => {
     setLastActivity(new Date());
   };
 
-  const handleLogout = () => {
-    try {
-      const userSession = localStorage.getItem('userSession');
-      if (userSession) {
-        localStorage.removeItem('userSession');
-        navigate('/');
-      } else {
-        console.error('Erreur lors de la déconnexion');
-      }
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion :', error);
-    }
-  };
+  
 
   useEffect(() => {
+    const handleLogout = () => {
+        try {
+          const userSession = localStorage.getItem('userSession');
+          if (userSession) {
+            localStorage.removeItem('userSession');
+            navigate('/');
+          } else {
+            console.error('Erreur lors de la déconnexion');
+          }
+        } catch (error) {
+          console.error('Erreur lors de la déconnexion :', error);
+        }
+      };
+
     const handleInactive = () => {
       const currentTime = new Date();
       const inactiveTime = currentTime - lastActivity;
@@ -47,7 +49,7 @@ const UseSessionExpiration = ({ children }) => {
       window.removeEventListener('keydown', handleActivity);
       clearInterval(intervalId);
     };
-  }, [lastActivity, navigate, handleLogout]);
+  }, [lastActivity, navigate]);
 
   return <div>{children}</div>;
 };
