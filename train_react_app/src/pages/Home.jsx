@@ -63,7 +63,7 @@ useEffect(() => {
         <h2>Bienvenue à {strUcFirst(datasWeather.address)}</h2>
         <h2> le {dateNow}</h2>
         Heure locale <h3>{timeHourNow} : {timeMinutesNow}</h3>
-        Heure du pays choisi : <h3>  {datasWeather.currentConditions.datetime}</h3>
+        Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && (<h3>  {datasWeather.currentConditions.datetime}</h3>)}
 
         <h2>Météo d'aujourd'hui :</h2>
         <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
