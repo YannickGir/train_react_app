@@ -1,21 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import Geonames from 'geonames.js';
+import {Country} from "country-state-city"
 
 const CitiesListForm = ({onSelectCity}) => {
-    const geonames = Geonames({
-        username: 'giro',
-        lan: 'fr',
-        encoding: 'JSON'
-      });
+    // const geonames = Geonames({
+    //     username: 'giro',
+    //     lan: 'fr',
+    //     encoding: 'JSON'
+    //   });
 
+    //   let cities = Country.getAllCountries();
+    // console.log(data);
+    
+
+    // let countryData = Country.getAllCountries();
+    // console.log(countryData);
+    // const [country, setCountry] = useState(countryData[0])
     const cities = ["Marseille", "Paris", "New York", "hong-kong", "ouagadougou", "syndey", "toronto", 'montreal', 'mont-tremblant']
+    const [selected, setSelected] = useState(cities[0]);
     const [selectedCity, setSelectedCity] = useState("Marseille");
     const [filteredCities, setFilteredCities] = useState([]);
     // const [cities, setCities] = useState([]);
 
 
     const handleChange = (e) => {
+        
         const { value } = e.target;
         setSelectedCity(value);
         onSelectCity(value)

@@ -6,8 +6,21 @@ import Modal from 'react-modal';
 import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
 import CitiesListForm from '../components/CitiesListForm';
+import Selector from '../components/Selector';
+import {City, Country, State} from "country-state-city"
 
 export default function Home() {
+    let countryData = Country.getAllCountries();
+    // const [countryData, setCountryData] = useState(null);
+    const [stateData, setStateData] = useState();
+    const [cityData, setCityData] = useState();
+
+//     const initialCountry = countryData && countryData.length > 0 ? countryData[0] : null;
+//   const [country, setCountry] = useState(initialCountry);
+  const [country, setCountry] = useState(countryData[0]);
+    const [state, setState] = useState()
+    const [city, setCity] = useState()
+
     // const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -17,6 +30,30 @@ export default function Home() {
     const [timeHourNow, setTimeHourNow] = useState ("");
     const [timeMinutesNow, setTimeMinutesNow] = useState();
     const [datasWeather, setDatasWeather] = useState({})
+
+    // useEffect(() => {
+    //     if (!countryData) {
+    //       const countries = Country.getAllCountries();
+    //       setCountryData(countries);
+    //     }
+    //   }, [countryData]);
+       
+    useEffect(()=> {
+        setStateData(State.getStatesOfCountry(country?.isoCode));
+    }, [country])
+
+   useEffect(()=> {
+        setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode));
+    }, [state, country?.isoCode, state?.isoCode]) 
+
+    useEffect(()=> {
+        stateData && setState(stateData[0])
+    }, [stateData])
+
+    useEffect(()=> {
+        cityData && setCity(cityData[0])
+    }, [cityData])
+
 useEffect(() => {
     const userSession = localStorage.getItem('userSession');
     if (userSession) {
@@ -35,7 +72,7 @@ useEffect(() => {
       const getWeather = async () => {
         try {
           const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity}`);
-          console.log(response.data.currentConditions.datetime);
+        //   console.log(response.data.currentConditions.datetime);
           setDatasWeather(response.data);
         } catch (error) {
           console.error('Erreur lors de la récupération des données météorologiques :', error);
@@ -60,19 +97,34 @@ useEffect(() => {
     <UseSessionExpiration> 
     <div className='home' >
         <h1> HOME </h1>
-        <h2>Bienvenue à {strUcFirst(datasWeather.address)}</h2>
-        <h2> le {dateNow}</h2>
-        Heure locale <h3>{timeHourNow} : {timeMinutesNow}</h3>  
-        Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && (<h3>  {datasWeather.currentConditions.datetime}</h3>)}
+        <h3>Bienvenue à {strUcFirst(datasWeather.address)}</h3>
+        <h3> le {dateNow}</h3>
+        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}>Heure locale : {timeHourNow} : {timeMinutesNow}</div>  
+        Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
         
 
         <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
         <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
         <h3>Températures:</h3>
          {datasWeather.days && datasWeather.days[0] && (
-                <div>
+                <div> 
+                    <div 
+                    className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
+                        <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                        <p>Pays</p>  
+                            <Selector data={countryData} selected={country} setSelected={setCountry}/>
+                        </div> 
+                        {state && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                            <p>Région</p> 
+                            <Selector data={stateData} selected={state} setSelected={setState}/>
+                        </div> )}
+                        {city && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                            <p>Ville</p> 
+                            <Selector data={cityData} selected={city} setSelected={setCity}/>
+                        </div> )}
+                    </div>
                     <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
-                    
+                   
                 </div>
             )}
         
