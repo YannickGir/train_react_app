@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
 import NetworkStatus from './NetworkStatus';
+import UseSessionExpiration from './Custom hooks/UseSessionExpiration';
 
 
 
@@ -129,8 +130,8 @@ function App() {
           };
 
           var verseHeader = <></>
-          const userSessioState = localStorage.getItem('userSession')
-          if (!userSessioState) {
+          const userSessionState = localStorage.getItem('userSession')
+          if (!userSessionState) {
             verseHeader = (
             <header className='header'>
                 <NetworkStatus/>
@@ -138,7 +139,7 @@ function App() {
                             <Link to={'SignInPage'} >Se connecter</Link>
                 </button>  
             </header>)
-          } else if (userSessioState) {
+          } else if (userSessionState) {
             verseHeader = (
             <header className='header'>
                 <NetworkStatus/>
@@ -151,16 +152,17 @@ function App() {
                 <button onClick={handleLogout}>Déconnexion</button>
             </header>)
             }
-        return <> 
+        return (
+        <UseSessionExpiration> 
             {verseHeader}
             <div className='container my-4'>
                 {state === 'loading' && 'Loading'}
                 
                 <Outlet/>
             </div>
-        </>
+        </UseSessionExpiration>
         
-    }
+    )}
    
 
   return ( 

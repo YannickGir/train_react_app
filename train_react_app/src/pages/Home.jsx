@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
+import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
 
 export default function Home() {
     // const {id} = useParams()
@@ -50,6 +51,7 @@ useEffect(() => {
   : null;
 
   return (
+    <UseSessionExpiration> 
     <div className='home' >
         <h1> HOME </h1>
         <h2>Bienvenue à {strUcFirst(datasWeather.address)}</h2>
@@ -83,6 +85,7 @@ useEffect(() => {
 </Modal>
         
     </div>
+    </UseSessionExpiration>
   )
 }
 
