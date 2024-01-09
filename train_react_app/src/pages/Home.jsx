@@ -10,8 +10,8 @@ import Selector from '../components/Selector';
 import {City, Country, State} from "country-state-city"
 
 export default function Home() {
-    let countryData = Country.getAllCountries();
-    // const [countryData, setCountryData] = useState(null);
+    // let countryData = Country.getAllCountries();
+    const [countryData, setCountryData] = useState([]);
     const [stateData, setStateData] = useState();
     const [cityData, setCityData] = useState();
 
@@ -31,6 +31,19 @@ export default function Home() {
     const [timeMinutesNow, setTimeMinutesNow] = useState();
     const [datasWeather, setDatasWeather] = useState({})
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const countries = await Country.getAllCountries();
+            setCountryData(countries);
+            setCountry(countries[0]);
+          } catch (error) {
+            console.error('Erreur lors de la récupération des pays :', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
     // useEffect(() => {
     //     if (!countryData) {
     //       const countries = Country.getAllCountries();
@@ -71,15 +84,21 @@ useEffect(() => {
   
       const getWeather = async () => {
         try {
-          const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity}`);
+            console.log('Selected City.name:', selectedCity.name);
+          const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity.name}`);
         //   console.log(response.data.currentConditions.datetime);
-          setDatasWeather(response.data);
+        if (response.data !== undefined) {
+            setDatasWeather(response.data);
+          } else {
+            // Si les données sont undefined, définir une valeur par défaut (par exemple, les données de Marseille)
+            setSelectedCity('Marseille')
+          }
         } catch (error) {
           console.error('Erreur lors de la récupération des données météorologiques :', error);
         }
       };
 
-      getWeather();
+      selectedCity.name && getWeather();
       return () => clearInterval(intervalId);
     } else {
       navigate('/');
@@ -104,7 +123,7 @@ useEffect(() => {
         
 
         <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
-        <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
+        {/* <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>   */}
         <h3>Températures:</h3>
          {datasWeather.days && datasWeather.days[0] && (
                 <div> 
@@ -112,7 +131,7 @@ useEffect(() => {
                     className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
                         <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
                         <p>Pays</p>  
-                            <Selector data={countryData} selected={country} setSelected={setCountry}/>
+                            <Selector data={countryData} selected={country} setSelected={setCountry}  />
                         </div> 
                         {state && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
                             <p>Région</p> 
@@ -120,7 +139,8 @@ useEffect(() => {
                         </div> )}
                         {city && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
                             <p>Ville</p> 
-                            <Selector data={cityData} selected={city} setSelected={setCity}/>
+                            <Selector data={cityData} selected={city} setSelected={setCity} onSelectCity={(selectedCity) => {
+            setSelectedCity(selectedCity)}}/>
                         </div> )}
                     </div>
                     <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
