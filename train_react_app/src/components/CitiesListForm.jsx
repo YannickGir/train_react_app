@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 const CitiesListForm = ({onSelectCity}) => {
-    const cities = ["Marseille", "Paris", "New York"]
+    const cities = ["Marseille", "Paris", "New York", "hong-kong", "ouagadougou", "syndey", "toronto", 'montreal', 'mont-tremblant']
     const [selectedCity, setSelectedCity] = useState("Marseille");
  
     const handleChange = (e) => {

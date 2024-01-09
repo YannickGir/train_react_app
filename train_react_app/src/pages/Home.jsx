@@ -35,6 +35,7 @@ useEffect(() => {
       const getWeather = async () => {
         try {
           const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity}`);
+          console.log(response.data.currentConditions.datetime);
           setDatasWeather(response.data);
         } catch (error) {
           console.error('Erreur lors de la récupération des données météorologiques :', error);
@@ -61,15 +62,16 @@ useEffect(() => {
         <h1> HOME </h1>
         <h2>Bienvenue à {strUcFirst(datasWeather.address)}</h2>
         <h2> le {dateNow}</h2>
-        <h3>{timeHourNow} : {timeMinutesNow}</h3>
+        Heure locale <h3>{timeHourNow} : {timeMinutesNow}</h3>
+        Heure du pays choisi : <h3>  {datasWeather.currentConditions.datetime}</h3>
 
         <h2>Météo d'aujourd'hui :</h2>
         <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
-        <h3>Températures:</h3> {datasWeather.queryCost}
+        <h3>Températures:</h3>
          {datasWeather.days && datasWeather.days[0] && (
                 <div>
                     <h4>Maximales : {datasWeather.days[0].tempmax}°</h4>
-                    <h4>Maximales : {datasWeather.days[0].tempmin}°</h4>
+                    <h4>Minimales : {datasWeather.days[0].tempmin}°</h4>
                     <img src={iconUrl} alt="Weather Icon" />
                 </div>
             )}
