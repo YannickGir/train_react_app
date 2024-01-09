@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
-import CitiesList from '../components/CitiesList';
+import CitiesListForm from '../components/CitiesListForm';
 
 export default function Home() {
     // const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
-
+    const [selectedCity, setSelectedCity] = useState("Marseille"); 
     const [dateNow, setDateNow] = useState("");
     const [timeHourNow, setTimeHourNow] = useState ("");
     const [timeMinutesNow, setTimeMinutesNow] = useState();
@@ -32,17 +32,21 @@ useEffect(() => {
         getDateAndHour();
       }, 60000);
   
-        const getWeather = async()=> {
-            const response = await axios.get("http://localhost:8800/weather")
-            console.log(response.data.days[0].icon);
-            setDatasWeather(response.data)
+      const getWeather = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity}`);
+          setDatasWeather(response.data);
+        } catch (error) {
+          console.error('Erreur lors de la récupération des données météorologiques :', error);
         }
-        getWeather()
+      };
+
+      getWeather();
       return () => clearInterval(intervalId);
     } else {
       navigate('/');
     }
-  }, [navigate, setAuthenticated]);
+  }, [navigate, setAuthenticated, selectedCity]);
 
   function strUcFirst(a) {
     return (a+'').charAt(0).toUpperCase() + (a+'').substr(1);
@@ -60,8 +64,8 @@ useEffect(() => {
         <h3>{timeHourNow} : {timeMinutesNow}</h3>
 
         <h2>Météo d'aujourd'hui :</h2>
-        <CitiesList/>  
-        <h3>Températures:</h3> 
+        <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
+        <h3>Températures:</h3> {datasWeather.queryCost}
          {datasWeather.days && datasWeather.days[0] && (
                 <div>
                     <h4>Maximales : {datasWeather.days[0].tempmax}°</h4>

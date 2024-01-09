@@ -1,24 +1,13 @@
 import React, { useState } from 'react'
-import axios from 'axios';
-
-const CitiesList = ({onselect}) => {
+const CitiesListForm = ({onSelectCity}) => {
     const cities = ["Marseille", "Paris", "New York"]
-    const [selectedCity, setSelectedCity] = useState('');
-
+    const [selectedCity, setSelectedCity] = useState("Marseille");
+ 
     const handleChange = (e) => {
         const { value } = e.target;
-        try {
-          axios.post('http://localhost:8800/city', {
-            selectedCity: value
-          });
-        } catch (error) {
-          console.error('Erreur lors de la requête vers le backend :', error);
-        }
-    
         setSelectedCity(value);
+        onSelectCity(value)
       };
-
-        
     
   return (
     
@@ -40,4 +29,4 @@ const CitiesList = ({onselect}) => {
    
 }
 
-export default CitiesList;
+export default CitiesListForm;
