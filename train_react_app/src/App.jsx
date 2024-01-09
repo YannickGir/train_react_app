@@ -51,9 +51,9 @@ function App() {
                 {
                     path:'home',
                     element: <div className="row">
-                        <aside className="col-3">
+                        {/* <aside className="col-3">
                             <h2>Menu</h2>
-                        </aside>
+                        </aside> */}
                         <main className="col-9">
                              <Outlet/>
                         </main>

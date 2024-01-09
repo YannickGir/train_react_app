@@ -62,17 +62,17 @@ useEffect(() => {
         <h1> HOME </h1>
         <h2>Bienvenue à {strUcFirst(datasWeather.address)}</h2>
         <h2> le {dateNow}</h2>
-        Heure locale <h3>{timeHourNow} : {timeMinutesNow}</h3>
+        Heure locale <h3>{timeHourNow} : {timeMinutesNow}</h3>  
         Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && (<h3>  {datasWeather.currentConditions.datetime}</h3>)}
+        
 
-        <h2>Météo d'aujourd'hui :</h2>
+        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
         <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>  
         <h3>Températures:</h3>
          {datasWeather.days && datasWeather.days[0] && (
                 <div>
-                    <h4>Maximales : {datasWeather.days[0].tempmax}°</h4>
-                    <h4>Minimales : {datasWeather.days[0].tempmin}°</h4>
-                    <img src={iconUrl} alt="Weather Icon" />
+                    <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
+                    
                 </div>
             )}
         
