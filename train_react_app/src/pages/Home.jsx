@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
+import CitiesList from '../components/CitiesList';
 
 export default function Home() {
     // const {id} = useParams()
@@ -59,6 +60,7 @@ useEffect(() => {
         <h3>{timeHourNow} : {timeMinutesNow}</h3>
 
         <h2>Météo d'aujourd'hui :</h2>
+        <CitiesList/>  
         <h3>Températures:</h3> 
          {datasWeather.days && datasWeather.days[0] && (
                 <div>

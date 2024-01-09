@@ -29,7 +29,7 @@ const UseSessionExpiration = ({ children }) => {
     const handleInactive = () => {
       const currentTime = new Date();
       const inactiveTime = currentTime - lastActivity;
-      const expirationTime = 10 * 1000;
+      const expirationTime = 5 * 60 * 1000;
 
       if (inactiveTime > expirationTime) {
         handleLogout();

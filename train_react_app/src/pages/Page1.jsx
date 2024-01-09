@@ -3,6 +3,7 @@ import { useLoaderData, useParams,NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
 export default function Page1() {
+   
     const {id} = useParams();
     const posts = useLoaderData()
     const [authenticated, setAuthenticated] = useState(false);
