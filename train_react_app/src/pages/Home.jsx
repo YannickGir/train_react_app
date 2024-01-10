@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
-import CitiesListForm from '../components/CitiesListForm';
 import Selector from '../components/Selector';
 import {City, Country, State} from "country-state-city"
 
@@ -84,21 +83,17 @@ useEffect(() => {
   
       const getWeather = async () => {
         try {
-            console.log('Selected City.name:', selectedCity.name);
+        const cityName = selectedCity && selectedCity.name ? selectedCity.name : "Marseille";
+        console.log('Selected City.name:', cityName);
           const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity.name}`);
         //   console.log(response.data.currentConditions.datetime);
-        if (response.data !== undefined) {
             setDatasWeather(response.data);
-          } else {
-            // Si les données sont undefined, définir une valeur par défaut (par exemple, les données de Marseille)
-            setSelectedCity('Marseille')
-          }
         } catch (error) {
           console.error('Erreur lors de la récupération des données météorologiques :', error);
         }
       };
 
-      selectedCity.name && getWeather();
+      getWeather();
       return () => clearInterval(intervalId);
     } else {
       navigate('/');
@@ -120,14 +115,7 @@ useEffect(() => {
         <h3> le {dateNow}</h3>
         <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}>Heure locale : {timeHourNow} : {timeMinutesNow}</div>  
         Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
-        
-
-        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
-        {/* <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>   */}
-        <h3>Températures:</h3>
-         {datasWeather.days && datasWeather.days[0] && (
-                <div> 
-                    <div 
+                <div 
                     className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
                         <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
                         <p>Pays</p>  
@@ -143,6 +131,15 @@ useEffect(() => {
             setSelectedCity(selectedCity)}}/>
                         </div> )}
                     </div>
+        
+        
+
+        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
+        {/* <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>   */}
+        <h3>Températures:</h3>
+         {datasWeather.days && datasWeather.days[0] && (
+                <div> 
+                    
                     <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
                    
                 </div>

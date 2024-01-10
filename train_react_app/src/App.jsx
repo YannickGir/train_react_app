@@ -143,7 +143,7 @@ function App() {
             verseHeader = (
             <header className='header'>
                 <NetworkStatus/>
-                <button style={{padding:'8px', margin:'8px'}}> 
+                <button  style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'home/1/1'} >Page1</Link>
                 </button> 
                 <button style={{padding:'8px', margin:'8px'}}>    
