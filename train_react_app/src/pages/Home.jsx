@@ -9,18 +9,12 @@ import Selector from '../components/Selector';
 import {City, Country, State} from "country-state-city"
 
 export default function Home() {
-    // let countryData = Country.getAllCountries();
     const [countryData, setCountryData] = useState([]);
     const [stateData, setStateData] = useState();
     const [cityData, setCityData] = useState();
-
-//     const initialCountry = countryData && countryData.length > 0 ? countryData[0] : null;
-//   const [country, setCountry] = useState(initialCountry);
-  const [country, setCountry] = useState(countryData[0]);
+    const [country, setCountry] = useState(countryData[0]);
     const [state, setState] = useState()
     const [city, setCity] = useState()
-
-    // const {id} = useParams()
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [authenticated, setAuthenticated] = useState(false);
@@ -40,21 +34,14 @@ export default function Home() {
             console.error('Erreur lors de la récupération des pays :', error);
           }
         };
-    
         fetchData();
       }, []);
-    // useEffect(() => {
-    //     if (!countryData) {
-    //       const countries = Country.getAllCountries();
-    //       setCountryData(countries);
-    //     }
-    //   }, [countryData]);
        
     useEffect(()=> {
         setStateData(State.getStatesOfCountry(country?.isoCode));
     }, [country])
 
-   useEffect(()=> {
+    useEffect(()=> {
         setCityData(City.getCitiesOfState(country?.isoCode, state?.isoCode));
     }, [state, country?.isoCode, state?.isoCode]) 
 
@@ -66,103 +53,101 @@ export default function Home() {
         cityData && setCity(cityData[0])
     }, [cityData])
 
-useEffect(() => {
-    const userSession = localStorage.getItem('userSession');
-    if (userSession) {
-      setAuthenticated(true);
-      const getDateAndHour = () => {
-        setDateNow(new Date().toLocaleDateString());
-        setTimeHourNow(new Date().getHours());
-        setTimeMinutesNow(new Date().getMinutes());
-      }
-      getDateAndHour()
+    useEffect(() => {
+        const userSession = localStorage.getItem('userSession');
+        if (userSession) {
+            setAuthenticated(true);
+            const getDateAndHour = () => {
+                setDateNow(new Date().toLocaleDateString());
+                setTimeHourNow(new Date().getHours());
+                setTimeMinutesNow(new Date().getMinutes());
+            }
+            getDateAndHour()
 
-      const intervalId = setInterval(() => {
-        getDateAndHour();
-      }, 60000);
-  
-      const getWeather = async () => {
-        try {
-        const cityName = selectedCity && selectedCity.name ? selectedCity.name : "Marseille";
-        console.log('Selected City.name:', cityName);
-          const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity.name}`);
-        //   console.log(response.data.currentConditions.datetime);
-            setDatasWeather(response.data);
-        } catch (error) {
-          console.error('Erreur lors de la récupération des données météorologiques :', error);
+            const intervalId = setInterval(() => {
+                getDateAndHour();
+            }, 60000);
+        
+            const getWeather = async () => {
+                try {
+                const cityName = selectedCity && selectedCity.name ? selectedCity.name : "Marseille";
+                console.log('Selected City.name:', cityName);
+                const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity.name}`);
+                    setDatasWeather(response.data);
+                } catch (error) {
+                console.error('Erreur lors de la récupération des données météorologiques :', error);
+                }
+            };
+            getWeather();
+            return () => clearInterval(intervalId);
+        } else {
+            navigate('/');
         }
-      };
+    }, [navigate, setAuthenticated, selectedCity]);
 
-      getWeather();
-      return () => clearInterval(intervalId);
-    } else {
-      navigate('/');
+    function strUcFirst(a) {
+        return (a+'').charAt(0).toUpperCase() + (a+'').substr(1);
     }
-  }, [navigate, setAuthenticated, selectedCity]);
+    const iconUrl = datasWeather.days && datasWeather.days[0] 
+    ? `/iconswheather/${datasWeather.days[0].icon}.png` 
+    : null;
 
-  function strUcFirst(a) {
-    return (a+'').charAt(0).toUpperCase() + (a+'').substr(1);
-  }
-  const iconUrl = datasWeather.days && datasWeather.days[0] 
-  ? `/iconswheather/${datasWeather.days[0].icon}.png` 
-  : null;
-
-  return (
-    <UseSessionExpiration> 
-    <div className='home' >
-        <h1> HOME </h1>
-        <h3>Bienvenue à {strUcFirst(datasWeather.address)}</h3>
-        <h3> le {dateNow}</h3>
-        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}>Heure locale : {timeHourNow} : {timeMinutesNow}</div>  
-        Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
-                <div 
-                    className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
-                        <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                        <p>Pays</p>  
-                            <Selector data={countryData} selected={country} setSelected={setCountry}  />
-                        </div> 
-                        {state && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                            <p>Région</p> 
-                            <Selector data={stateData} selected={state} setSelected={setState}/>
-                        </div> )}
-                        {city && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                            <p>Ville</p> 
-                            <Selector data={cityData} selected={city} setSelected={setCity} onSelectCity={(selectedCity) => {
-            setSelectedCity(selectedCity)}}/>
-                        </div> )}
+    return (
+        <UseSessionExpiration> 
+            <div className='home' >
+                <h1> HOME </h1>
+                <h3>Bienvenue à {strUcFirst(datasWeather.address)}</h3>
+                <h3> le {dateNow}</h3>
+                <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}>
+                    Heure locale : {timeHourNow} : {timeMinutesNow}
+                </div>  
+                    Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
+                    <div 
+                        className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
+                            <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                            <p>Pays</p>  
+                                <Selector data={countryData} selected={country} setSelected={setCountry}  />
+                            </div> 
+                            {state && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                                <p>Région</p> 
+                                <Selector data={stateData} selected={state} setSelected={setState}/>
+                            </div> )}
+                            {city && (
+                                <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                                    <p>Ville</p> 
+                                    <Selector data={cityData} selected={city} setSelected={setCity} onSelectCity={(selectedCity) => {
+                                    setSelectedCity(selectedCity)}}/>
+                                </div> 
+                            )}
                     </div>
-        
-        
 
-        <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> <h3>Météo d'aujourd'hui </h3> <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" /></div>
-        {/* <CitiesListForm onSelectCity={(city) => setSelectedCity(city)}/>   */}
-        <h3>Températures:</h3>
-         {datasWeather.days && datasWeather.days[0] && (
-                <div> 
-                    
-                    <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
-                   
+                <div style={{display: 'flex' , flexDirection: 'row', marginLeft:'30%'}}> 
+                    <h3>Météo d'aujourd'hui </h3> 
+                    <img style={{marginLeft:'5px'}} src={iconUrl} alt="Weather Icon" />
                 </div>
-            )}
-        
-
-        
-        <Modal className='modal'
-        
-  isOpen={modalIsOpen}
-  onRequestClose={() => setModalIsOpen(false)}
-  contentLabel="boîte de dialogue"
->
-  <h2>L'email n'existe pas !</h2>
-  <p>Vous pouvez vous inscrire en cliquant sur le bouton s'inscrire !</p>
-  <button style={{padding:'8px', margin:'8px'}}> 
+                    <h3>Températures:</h3>
+                    {datasWeather.days && datasWeather.days[0] && (
+                    <div> 
+                        <h4>Maximales : {datasWeather.days[0].tempmax}°  /   Minimales : {datasWeather.days[0].tempmin}°</h4>
+                    </div>
+                    )}
+                
+                <Modal className='modal'
+                
+                    isOpen={modalIsOpen}
+                    onRequestClose={() => setModalIsOpen(false)}
+                    contentLabel="boîte de dialogue"
+                    >
+                    <h2>L'email n'existe pas !</h2>
+                    <p>Vous pouvez vous inscrire en cliquant sur le bouton s'inscrire !</p>
+                    <button style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'/SignUpPage'} >S'inscrire</Link>
-    </button> 
-  <button onClick={() => setModalIsOpen(false)}>Fermer</button>
-</Modal>
-        
-    </div>
-    </UseSessionExpiration>
-  )
+                    </button> 
+                    <button onClick={() => setModalIsOpen(false)}>Fermer</button>
+                </Modal>
+                
+            </div>
+        </UseSessionExpiration>
+    )
 }
 
