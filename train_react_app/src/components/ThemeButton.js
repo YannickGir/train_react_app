@@ -1,11 +1,13 @@
 import React from 'react'
 import useTheme from '../contexts/theme.context';
 
- function ThemButton() {
+ function ThemeButton() {
     const {themeMode, lightTheme, darkTheme} = useTheme()
     const onChangeButton = (e)=> {
         const darkModeStatus = e.currentTarget.checked
-        darkModeStatus === 'dark' ? lightTheme() : darkTheme()
+        console.log("Dark mode status:", darkModeStatus);
+        if (darkModeStatus) darkTheme() 
+        else lightTheme ()
     }
   return (
     <label className="relative inline-flex items-center cursor-pointer">
@@ -20,11 +22,11 @@ import useTheme from '../contexts/theme.context';
         peer-focus:ring-blue-300
         dark:peer-focus:ring-blue-800 rounded-full peer
         dark:bg-gray-700
-        peer-cheked:after:translate-x-full '>
+        peer-checked:after:translate-x-full '>
 
         </div>
     </label>
   )
 }
 
-export default ThemButton;
+export default ThemeButton;

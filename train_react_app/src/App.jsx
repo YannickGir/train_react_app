@@ -11,7 +11,7 @@ import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
 import NetworkStatus from './NetworkStatus';
 import UseSessionExpiration from './Custom hooks/UseSessionExpiration';
-import ThemButton from './components/ThemeButton';
+import ThemeButton from './components/ThemeButton';
 import {ThemeProvider} from './contexts/theme.context'
 
 
@@ -148,7 +148,7 @@ function App() {
           if (!userSessionState) {
             verseHeader = (
             <header className='header'>
-                <ThemButton/>
+                <ThemeButton/>
                 <NetworkStatus/>
                 <button style={{padding:'8px', margin:'8px'}}> 
                             <Link to={'SignInPage'} >Se connecter</Link>
@@ -157,7 +157,7 @@ function App() {
           } else if (userSessionState) {
             verseHeader = (
             <header className='header'>
-                <ThemButton/>
+                <ThemeButton/>
                 <NetworkStatus/>
                 <button  style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'home/1/1'} >Page1</Link>
@@ -169,6 +169,7 @@ function App() {
             </header>)
             }
         return (
+            <ThemeProvider value={{themeMode, darkTheme, lightTheme}}>
         <UseSessionExpiration> 
             {verseHeader}
             <div className='container my-4'>
@@ -177,16 +178,17 @@ function App() {
                 <Outlet/>
             </div>
         </UseSessionExpiration>
+        </ThemeProvider>
         
     )}
    
 
   return ( 
-    <ThemeProvider value={{themeMode, darkTheme, lightTheme}}>
+    
         <div className="App">
         <RouterProvider router={Router}/>
         </div> 
-    </ThemeProvider>
+    
     
   );
 }
