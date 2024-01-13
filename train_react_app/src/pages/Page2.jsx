@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState }from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
-import ThemeContext from '../contexts/them.context';
+import ThemeContext from '../contexts/theme.context';
 
 export default function Page1() {
  

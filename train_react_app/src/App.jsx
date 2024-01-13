@@ -1,7 +1,7 @@
 
 import './App.css';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, createBrowserRouter, RouterProvider, Outlet, useRouteError, useNavigation, Spinner } from 'react-router-dom';
 import Page1 from './pages/Page1';
 import Page2 from './pages/Page2';
@@ -11,10 +11,23 @@ import SignUpPage from './pages/SignUpPage';
 import SignInPage from './pages/SignInPage';
 import NetworkStatus from './NetworkStatus';
 import UseSessionExpiration from './Custom hooks/UseSessionExpiration';
-
+import ThemButton from './components/ThemeButton';
+import {ThemeProvider} from './contexts/theme.context'
 
 
 function App() {
+    const [themeMode, setThemeMode] = useState('light')
+    const darkTheme = () => {
+        setThemeMode('dark')
+    }
+
+    const lightTheme = ()=>
+    setThemeMode('light')
+
+    useEffect(()=> {
+        document.querySelector('html').classList.remove('dark', "light")
+        document.querySelector('html').classList.add(themeMode)
+    }, [themeMode])
 
     const Router = createBrowserRouter ([
         {
@@ -113,6 +126,7 @@ function App() {
     }
       
     function Root() {
+        
         const {state} = useNavigation()
         const navigate = useNavigate();
         const handleLogout = async () => {
@@ -134,6 +148,7 @@ function App() {
           if (!userSessionState) {
             verseHeader = (
             <header className='header'>
+                <ThemButton/>
                 <NetworkStatus/>
                 <button style={{padding:'8px', margin:'8px'}}> 
                             <Link to={'SignInPage'} >Se connecter</Link>
@@ -142,6 +157,7 @@ function App() {
           } else if (userSessionState) {
             verseHeader = (
             <header className='header'>
+                <ThemButton/>
                 <NetworkStatus/>
                 <button  style={{padding:'8px', margin:'8px'}}> 
                         <Link to={'home/1/1'} >Page1</Link>
@@ -166,9 +182,12 @@ function App() {
    
 
   return ( 
-    <div className="App">
-   <RouterProvider router={Router}/>
-    </div>
+    <ThemeProvider value={{themeMode, darkTheme, lightTheme}}>
+        <div className="App">
+        <RouterProvider router={Router}/>
+        </div> 
+    </ThemeProvider>
+    
   );
 }
 
