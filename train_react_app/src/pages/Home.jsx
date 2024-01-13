@@ -7,6 +7,7 @@ import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
 import Selector from '../components/Selector';
 import {City, Country, State} from "country-state-city"
+import ThemeContext from '../contexts/them.context';
 
 export default function Home() {
     const [countryData, setCountryData] = useState([]);
@@ -93,8 +94,10 @@ export default function Home() {
     : null;
 
     return (
-        <UseSessionExpiration> 
+       
+                <UseSessionExpiration> 
             <div className='home' >
+                
                 <h1> HOME </h1>
                 <h3>Bienvenue à {strUcFirst(datasWeather.address)}</h3>
                 <h3> le {dateNow}</h3>
@@ -148,6 +151,7 @@ export default function Home() {
                 
             </div>
         </UseSessionExpiration>
+       
     )
 }
 
