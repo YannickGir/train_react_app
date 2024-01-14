@@ -106,19 +106,19 @@ export default function Home() {
                     Heure locale : {timeHourNow} : {timeMinutesNow}
                 </div>  
                     Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
-                    <div 
-                        className='selection:text-black selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
-                            <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                            <p>Pays</p>  
-                                <Selector data={countryData} selected={country} setSelected={setCountry}  />
+                    <div style={{display: 'flex', flexDirection: 'column', marginLeft:'30%', marginTop:'5%', marginBottom:'5%'}}
+                        className= 'selection:text-black selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
+                            <div style={{ marginBottom:'5%'}} className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                            <p style={{ marginRight:'3%'}}>Pays : </p>  
+                                <Selector  data={countryData} selected={country} setSelected={setCountry}  />
                             </div> 
-                            {state && (<div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                                <p>Région</p> 
+                            {state && (<div style={{ marginBottom:'5%'}} className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
+                                <p style={{ marginRight:'3%'}}>Région</p> 
                                 <Selector data={stateData} selected={state} setSelected={setState}/>
                             </div> )}
                             {city && (
                                 <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                                    <p>Ville</p> 
+                                    <p style={{ marginRight:'3%'}}>Ville</p> 
                                     <Selector data={cityData} selected={city} setSelected={setCity} onSelectCity={(selectedCity) => {
                                     setSelectedCity(selectedCity)}}/>
                                 </div> 
