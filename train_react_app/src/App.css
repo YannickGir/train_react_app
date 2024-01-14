@@ -15,6 +15,11 @@ margin-bottom: 10%;
 
 }
 
+.wrapper {
+    display: flex;
+    justify-content: center;
+}
+
 .custom-selector-input {
     color: black !important;
   }
