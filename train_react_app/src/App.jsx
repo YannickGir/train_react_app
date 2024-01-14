@@ -12,8 +12,8 @@ import SignInPage from './pages/SignInPage';
 import NetworkStatus from './NetworkStatus';
 import UseSessionExpiration from './Custom hooks/UseSessionExpiration';
 import ThemeButton from './components/ThemeButton';
-import {ThemeProvider} from './contexts/theme.context'
-
+import {ThemeProvider} from './contexts/theme.context';
+import './styles/tailwind.css';
 
 function App() {
     const [themeMode, setThemeMode] = useState('light')
