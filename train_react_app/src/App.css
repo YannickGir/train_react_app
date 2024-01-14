@@ -8,12 +8,17 @@
 background-size: cover;
 height: 80vh;
 width: 30vw;
-color: white;
+color: rgb(0, 0, 0);
 margin: auto;
 margin-top: 5%;
 margin-bottom: 10%;
 
 }
+
+.custom-selector-input {
+    color: black !important;
+  }
+  
 
 body {
     background-color: #fff;

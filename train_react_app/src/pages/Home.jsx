@@ -72,8 +72,9 @@ export default function Home() {
             const getWeather = async () => {
                 try {
                 const cityName = selectedCity && selectedCity.name ? selectedCity.name : "Marseille";
-                console.log('Selected City.name:', cityName);
-                const response = await axios.get(`http://localhost:8800/weather?selectedCity=${selectedCity.name}`);
+                console.log('ScityName', cityName);
+                console.log('selectedCity.name:', selectedCity.name);
+                const response = await axios.get(`http://localhost:8800/weather?selectedCity=${cityName}`);
                     setDatasWeather(response.data);
                 } catch (error) {
                 console.error('Erreur lors de la récupération des données météorologiques :', error);
@@ -106,7 +107,7 @@ export default function Home() {
                 </div>  
                     Heure du pays choisi :  {datasWeather && datasWeather.currentConditions && datasWeather.currentConditions.datetime}
                     <div 
-                        className='selection:text-white selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
+                        className='selection:text-black selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
                             <div className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
                             <p>Pays</p>  
                                 <Selector data={countryData} selected={country} setSelected={setCountry}  />
