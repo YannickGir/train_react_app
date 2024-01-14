@@ -25,8 +25,8 @@ function App() {
     setThemeMode('light')
 
     useEffect(()=> {
-        document.querySelector('html').classList.remove('dark', "light")
-        document.querySelector('html').classList.add(themeMode)
+        document.querySelector('html').classList.toggle('dark', themeMode === 'dark')
+        document.querySelector('html').classList.toggle('light', themeMode === 'light')
     }, [themeMode])
 
     const Router = createBrowserRouter ([
