@@ -7,7 +7,6 @@ import '../App.css';
 import UseSessionExpiration from '../Custom hooks/UseSessionExpiration';
 import Selector from '../components/Selector';
 import {City, Country, State} from "country-state-city"
-import ThemeContext from '../contexts/theme.context';
 
 export default function Home() {
     const [countryData, setCountryData] = useState([]);
