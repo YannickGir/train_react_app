@@ -25,12 +25,15 @@ const [editedIndex, setEditedIndex] = useState(null);
         setEditedIndex(null);
     }
 
-    const deleteTask = (index)=> {
-        const updatedTaskList = [...taskList];
-        updatedTaskList.splice(index,1)
-        setTaskList(updatedTaskList)
-        setEditedIndex(null);
-    }
+    const deleteTask = (index) => {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?");
+        if (confirmDelete) {
+            const updatedTaskList = [...taskList];
+            updatedTaskList.splice(index, 1);
+            setTaskList(updatedTaskList);
+            setEditedIndex(null);
+        }
+    };
 
     const openModal = (index) => {
         setEditedIndex(index);
