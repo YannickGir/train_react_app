@@ -18,7 +18,9 @@ const handleSubmit = (e)=> {
     e.preventDefault();
     const form = e.target;
     const elements = form.elements;
-    const task = elements.entryTask.value;
+    const formData = new FormData(form)
+    const task = formData.get("entryTask")
+    // const task = elements.entryTask.value;
     console.log(elements);
    addTaskToList(task)
     form.reset(); 
@@ -28,7 +30,7 @@ const handleSubmit = (e)=> {
             <div style={{background:'gray', height:'400px', width:'500px'}}>
               <form onSubmit={handleSubmit} >
                     <label htmlFor='entryTask'> Entrez une tâche ici : </label> <br/>
-                    <input type='text' id='entryTask' style={{color: 'black'}}/><br/>
+                    <input type='text' name='entryTask' id='entryTask' style={{color: 'black'}}/><br/>
                     <button type='submit' className='customButton'>Ajouter une tâche</button>
 
                     <div style={{marginTop:'20px'}}>
