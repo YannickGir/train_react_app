@@ -7,6 +7,9 @@ const handleSubmit = (e)=> {
     const elements = form.elements;
     const task = elements.entryTask.value;
     console.log(elements);
+   
+    form.reset(); 
+    
     alert(`task :${task}`)
 
 }
