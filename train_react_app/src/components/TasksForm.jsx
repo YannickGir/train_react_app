@@ -14,12 +14,19 @@ const [taskList, setTaskList] = useState([])
         })
     }
 
+    const deleteTask = (index, e)=> {
+        const updatedTaskList = [...taskList];
+        updatedTaskList.splice(index,1)
+        setTaskList(updatedTaskList)
+    }
+
 const handleSubmit = (e)=> {
     e.preventDefault();
     const form = e.target;
     const elements = form.elements;
     const formData = new FormData(form)
     const task = formData.get("entryTask")
+    
     // const task = elements.entryTask.value;
     console.log(elements);
    addTaskToList(task)
@@ -39,8 +46,8 @@ const handleSubmit = (e)=> {
                                 (
                                         <div key={index}>
                                             <input value={task} style={{color: 'black'}}/> 
-                                            <button className='customButton'>Modifier</button>
-                                            <button className='customButton' >Supprimer</button>
+                                            <button  className='customButton'>Modifier</button>
+                                            <button type='button' onClick={()=> deleteTask(index)} className='customButton' >Supprimer</button>
                                         </div>
                                 )
                             )   
