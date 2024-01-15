@@ -14,6 +14,7 @@ import UseSessionExpiration from './Custom hooks/UseSessionExpiration';
 import ThemeButton from './components/ThemeButton';
 import {ThemeProvider} from './contexts/theme.context';
 import './styles/tailwind.css';
+import { TasksProvider } from './contexts/tasksProvider.context';
 
 function App() {
     const [themeMode, setThemeMode] = useState('light')
@@ -184,10 +185,12 @@ function App() {
    
 
   return ( 
-    
+    <TasksProvider>
         <div className="App">
         <RouterProvider router={Router}/>
         </div> 
+    </TasksProvider>
+        
     
     
   );

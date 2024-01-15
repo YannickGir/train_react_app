@@ -1,78 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useTasks } from '../contexts/tasksProvider.context';
 
 
 
 const TasksForm = ()=> {
-const [taskList, setTaskList] = useState([])
-const [editedTask, setEditedTask] = useState("");
-const [isModalOpen, setIsModalOpen] = useState(false);
-const [editedIndex, setEditedIndex] = useState(null);
-
-    const addTaskToList = (task)=> {
-        setTaskList((previousTaskList) => {
-            const newTaskList = [...previousTaskList, task];
-            // alert(`taskList : ${newTaskList}`);
-            setTaskList(newTaskList)
-            return newTaskList;
-        })
-    }
-
-    const updateTask = (index, newTask) => {
-        const updatedTasklist = [...taskList];
-        updatedTasklist[index] = newTask
-        setTaskList(updatedTasklist)
-        setIsModalOpen(false);
-        setEditedIndex(null);
-    }
-
-    const deleteTask = (index) => {
-        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?");
-        if (confirmDelete) {
-            const updatedTaskList = [...taskList];
-            updatedTaskList.splice(index, 1);
-            setTaskList(updatedTaskList);
-            setEditedIndex(null);
-        }
-    };
-
-    const openModal = (index) => {
-        setEditedIndex(index);
-        setEditedTask(taskList[index]);
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setEditedTask("");
-        setEditedIndex(null);
-    };
-
-    const handleModalSubmit = () => {
-        if (editedIndex !== null) {
-            updateTask(editedIndex, editedTask);
-        }
-        closeModal();
-    };
-
-const handleSubmit = (e)=> {
-    e.preventDefault();
-    const form = e.target;
-    // const elements = form.elements;
-    const formData = new FormData(form)
-    const task = formData.get("entryTask")
+    const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal } = useTasks();
     
-    // const task = elements.entryTask.value;
-    // console.log(elements);
-   
-    if (editedTask !== "") {
-        updateTask(taskList.findIndex((t) => t === editedTask), task);
-        setEditedTask("");
-    } else {
-        addTaskToList(task);
-    }
-
-    form.reset(); 
-}
+    console.log("isModalOpen:", isModalOpen);
+    console.log("editedTask:", editedTask);
     return (
         <div className='wrapper' >
             <div style={{background:'gray', height:'400px', width:'500px'}}>
