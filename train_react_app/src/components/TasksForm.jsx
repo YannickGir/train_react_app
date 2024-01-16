@@ -7,12 +7,15 @@ import {AiOutlineDelete} from 'react-icons/ai';
 const TasksForm = ()=> {
     const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal } = useTasks();
     
+    const [isCompletedScreen, setIsCompletedScreen] = useState (false);
+
     console.log("isModalOpen:", isModalOpen);
     console.log("editedTask:", editedTask);
-    return (
-        <div className='wrapper' >
-            <div style={{background:'gray', height:'400px', width:'500px'}}>
-              <form onSubmit={handleSubmit} >
+
+
+
+    let taskListNotCompleted = (<> 
+                <form onSubmit={handleSubmit} >
                     <label htmlFor='entryTask'> Entrez une tâche ici : </label> <br/>
                     <input type='text' name='entryTask' id='entryTask' style={{color: 'black'}}/><br/>
                     <button type='submit' className='customButton'>Ajouter une tâche</button>
@@ -31,8 +34,6 @@ const TasksForm = ()=> {
                             )   
                         }
                     </div>
-              
-
                 </form>  
                 {isModalOpen && (
                     <div className='modal'>
@@ -51,6 +52,28 @@ const TasksForm = ()=> {
                         </button>
                     </div>
                 )}
+    </>)
+
+    let tasksCompleted = (
+        <>
+            <h1>tasks completed </h1>
+        </>
+    )
+
+    return (
+        <div className='wrapper' >
+            <div style={{background:'gray', height:'400px', width:'500px'}}>
+                <div>
+                    <button onClick={() => setIsCompletedScreen (false)} className='customButton'>
+                        Liste des tâches à faire
+                    </button>
+                    <button onClick={() => setIsCompletedScreen (true)} className='customButton'>
+                        Liste des tâches complétées
+                    </button>
+                </div>
+              {
+                isCompletedScreen === false && taskListNotCompleted
+              }
             </div>
         </div>
     )
