@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTasks } from '../contexts/tasksProvider.context';
+import {AiOutlineDelete} from 'react-icons/ai';
 
 
 
@@ -20,11 +21,11 @@ const TasksForm = ()=> {
                         <label> Liste de vos tâches : </label> <br/>
                         {taskList.map((task, index)=>
                                 (
-                                        <div key={index}>
-                                            <input type='text' value={task} style={{color: 'black'}}/> 
+                                        <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                                            <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
                                             <button type='button' onClick={() => openModal(index)}
                                     className='customButton'>Modifier</button>
-                                            <button type='button' onClick={()=> deleteTask(index)} className='customButton' >Supprimer</button>
+                                            <AiOutlineDelete style={{alignSelf:'center'}} title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' style={{hover: 'black'}} />
                                         </div>
                                 )
                             )   

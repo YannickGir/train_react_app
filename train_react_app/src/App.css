@@ -27,6 +27,16 @@ margin-bottom: 10%;
     background-color:#75c48d;
 }
 
+.icon{
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .icon:hover{
+    color: red;
+  
+  }
+
 .wrapper {
     display: flex;
     justify-content: center;
