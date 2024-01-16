@@ -1,0 +1,11 @@
+/* ButtonStyles.css */
+button {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+
+  button.cliked {
+    background-color: #75c48d
+  }
+  
