@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useTasks } from '../contexts/tasksProvider.context';
 import {AiOutlineDelete} from 'react-icons/ai';
-import DualHoverButtons from './DualHoverButtons ';
 import '../styles/ButtonStyles.css';
-
+import { SlCheck } from "react-icons/sl";
 
 const TasksForm = ()=> {
     const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal } = useTasks();
     
     const [isCompletedScreen, setIsCompletedScreen] = useState (false);
 
+    const [tasksListCompleted, setTasksListCompleted]= useState([])
     const [isButton1cliked, setIsButton1Cliked] = useState(false);
     const [isButton2cliked, setIsButton2Cliked] = useState(false);
 
@@ -41,8 +41,9 @@ const TasksForm = ()=> {
                                             <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
                                             <button type='button' onClick={() => openModal(index)}
                                     className='customButton'>Modifier</button>
-                                            <AiOutlineDelete style={{alignSelf:'center', hover: 'black'}} title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' />
-                                        </div>
+                                            <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' />
+                                            <SlCheck className='iconValidation'/>
+                                            </div>
                                 )
                             )   
                         }
@@ -76,7 +77,6 @@ const TasksForm = ()=> {
     return (
         <div className='wrapper' >
             <div style={{background:'gray', height:'400px', width:'500px'}}>
-                <DualHoverButtons/>
                 <div>
                     <button onClick={() => setIsCompletedScreen(false)}
         className={isCompletedScreen ? 'customButton' : 'customButton cliked'}>

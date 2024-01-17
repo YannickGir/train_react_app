@@ -16,7 +16,7 @@ margin-bottom: 10%;
 }
 
 .customButton {
-    background-color: #02b8e0;
+    background-color: #a0d4e0;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
@@ -30,10 +30,22 @@ margin-bottom: 10%;
 .icon{
     font-size: 25px;
     cursor: pointer;
+    margin-right: 15px;
   }
   
   .icon:hover{
     color: red;
+  
+  }
+
+
+  .iconValidation{
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .iconValidation:hover{
+    color: rgb(129, 217, 13);
   
   }
 
