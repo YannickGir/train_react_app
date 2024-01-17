@@ -38,6 +38,17 @@ margin-bottom: 10%;
   
   }
 
+  .iconModify{
+    font-size: 25px;
+    cursor: pointer;
+    
+    margin: 0 15px 0 15px;
+  }
+  
+  .iconModify:hover{
+    color: rgb(13, 193, 217);
+  
+  }
 
   .iconValidation{
     font-size: 25px;

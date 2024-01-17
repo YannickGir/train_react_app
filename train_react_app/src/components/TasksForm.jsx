@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useTasks } from '../contexts/tasksProvider.context';
-import {AiOutlineDelete} from 'react-icons/ai';
+import {AiOutlineDelete, AiOutlineCheck, AiOutlineForm} from 'react-icons/ai';
 import '../styles/ButtonStyles.css';
-import { SlCheck } from "react-icons/sl";
 
 const TasksForm = ()=> {
     const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal } = useTasks();
@@ -39,10 +38,10 @@ const TasksForm = ()=> {
                                 (
                                         <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                                             <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
-                                            <button type='button' onClick={() => openModal(index)}
-                                    className='customButton'>Modifier</button>
+                                            <AiOutlineForm onClick={() => openModal(index)} className='iconModify' />
+                                            
                                             <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' />
-                                            <SlCheck className='iconValidation'/>
+                                            <AiOutlineCheck className='iconValidation'/>
                                             </div>
                                 )
                             )   
