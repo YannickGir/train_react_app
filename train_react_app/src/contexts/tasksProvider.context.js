@@ -8,6 +8,7 @@ export const TasksProvider = ({ children }) => {
     const [editedTask, setEditedTask] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedIndex, setEditedIndex] = useState(null);
+    const [tasksListCompleted, setTasksListCompleted]= useState([])
     
         const addTaskToList = (task)=> {
             setTaskList((previousTaskList) => {
@@ -34,6 +35,23 @@ export const TasksProvider = ({ children }) => {
                 setTaskList(updatedTaskList);
                 setEditedIndex(null);
             }
+        };
+        const handleTaskCompleted = (task)=> {
+            const confirmDelete = window.confirm("Êtes-vous sûr d'avoir complété cette tâche ?");
+            if (confirmDelete) {
+            const getTasksListCompleted = [...tasksListCompleted, task];
+            localStorage.setItem('tasksCompleted', JSON.stringify(getTasksListCompleted))
+           const tasksListCompletedFromStorage = JSON.parse(localStorage.getItem('tasksCompleted'))
+            setTasksListCompleted(tasksListCompletedFromStorage)
+            deleteCompletedTaskFromTaskList(task)
+            console.log(tasksListCompleted)
+        }
+        }
+
+        const deleteCompletedTaskFromTaskList = (index) => {
+                const updatedTaskList = [...taskList];
+                updatedTaskList.splice(index, 1);
+                setTaskList(updatedTaskList);
         };
     
         const openModal = (index) => {
@@ -78,7 +96,7 @@ export const TasksProvider = ({ children }) => {
     }
 
   return (
-    <TasksContext.Provider value={{ taskList, addTaskToList, deleteTask, openModal, closeModal, handleModalSubmit, handleSubmit, isModalOpen, setEditedTask }}>
+    <TasksContext.Provider value={{ taskList, addTaskToList, deleteTask, openModal, closeModal, handleModalSubmit, handleSubmit, isModalOpen, setEditedTask, handleTaskCompleted, tasksListCompleted, setTasksListCompleted }}>
       {children}
     </TasksContext.Provider>
   );

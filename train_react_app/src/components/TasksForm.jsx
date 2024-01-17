@@ -4,27 +4,24 @@ import {AiOutlineDelete, AiOutlineCheck, AiOutlineForm} from 'react-icons/ai';
 import '../styles/ButtonStyles.css';
 
 const TasksForm = ()=> {
-    const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal } = useTasks();
+    const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal,  handleTaskCompleted,tasksListCompleted,  setTasksListCompleted } = useTasks();
     
     const [isCompletedScreen, setIsCompletedScreen] = useState (false);
 
-    const [tasksListCompleted, setTasksListCompleted]= useState([])
-    const [isButton1cliked, setIsButton1Cliked] = useState(false);
-    const [isButton2cliked, setIsButton2Cliked] = useState(false);
+   
 
-    console.log("isModalOpen:", isModalOpen);
-    console.log("editedTask:", editedTask);
 
-    const handleButtonClick = (buttonNumber) => {
-        if (buttonNumber === 1) {
-          setIsButton1Cliked(true);
-          setIsButton2Cliked(false);
+
     
-        } else if (buttonNumber === 2) {
-            setIsButton1Cliked(false);
-            setIsButton2Cliked(true);
+    const deleteCompletedTask = (index) => {
+        const confirmDelete = window.confirm("Êtes-vous sûr de vouloir supprimer cette tâche ?");
+        if (confirmDelete) {
+            const updatedTaskListCompleted = [...tasksListCompleted];
+            updatedTaskListCompleted.splice(index, 1);
+            setTasksListCompleted(updatedTaskListCompleted);
         }
-      };
+    };
+
 
     let taskListNotCompleted = (<> 
                 <form onSubmit={handleSubmit} >
@@ -41,7 +38,7 @@ const TasksForm = ()=> {
                                             <AiOutlineForm onClick={() => openModal(index)} className='iconModify' />
                                             
                                             <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' />
-                                            <AiOutlineCheck className='iconValidation'/>
+                                            <AiOutlineCheck onClick={()=>{handleTaskCompleted(task)}} className='iconValidation'/>
                                             </div>
                                 )
                             )   
@@ -67,11 +64,17 @@ const TasksForm = ()=> {
                 )}
     </>)
 
-    let tasksCompleted = (
-        <>
-            <h1>tasks completed </h1>
-        </>
-    )
+    let tasksCompleted = (<> 
+        {tasksListCompleted.map((task, index)=>
+            (
+                    <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
+                        <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
+                        <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteCompletedTask(index)} className='icon' />
+                        </div>
+            )
+        )   
+    }
+    </>)
 
     return (
         <div className='wrapper' >
