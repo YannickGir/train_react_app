@@ -164,7 +164,7 @@ function App() {
                         <Link to={'home/1/1'} >Page1</Link>
                 </button> 
                 <button style={{padding:'8px', margin:'8px'}}>    
-                    <Link to={'home/2/1'} >Page2</Link>
+                    <Link to={'home/2/1'} >TaskList</Link>
                 </button> 
                 <button onClick={handleLogout}>Déconnexion</button>
             </header>)

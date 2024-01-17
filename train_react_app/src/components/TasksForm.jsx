@@ -65,15 +65,15 @@ const TasksForm = ()=> {
     </>)
 
     let tasksCompleted = (<> 
-        {tasksListCompleted.map((task, index)=>
+        {tasksListCompleted && tasksListCompleted.length > 0 ?  tasksListCompleted.map((task, index)=>
             (
                     <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                         <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
                         <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteCompletedTask(index)} className='icon' />
                         </div>
-            )
-        )   
-    }
+            ) 
+        )   :  <h2>Aucune tâche complétée actuellement</h2>
+    } 
     </>)
 
     return (

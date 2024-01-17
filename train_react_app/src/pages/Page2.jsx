@@ -24,7 +24,7 @@ export default function Page1() {
             
             <div className='page2'>
                 <p>Context Value : {value}</p>
-        <h1> Page2 </h1>
+        <h1> TaskList </h1>
         <p> My id : {id} </p>
         <TasksForm/>
     
