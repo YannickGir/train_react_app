@@ -94,15 +94,54 @@ abbr:where([title]) {
 Remove the default font size and weight for headings.
 */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-}
+/* Style pour h1 */
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style pour h2 */
+  h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style pour h3 */
+  h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Style pour h4 */
+  h4 {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Style pour h5 */
+  h5 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  /* Style pour h6 */
+  h6 {
+    font-size: 0.875rem;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
 
 /*
 Reset links to optimize for opt-in styling instead of opt-out.

@@ -1,6 +1,7 @@
 import React, { useEffect, useState }from 'react'
 import { useLoaderData, useParams,NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
+import Dashboard from '../components/Dashboard';
 
 export default function Page1() {
    
@@ -18,15 +19,15 @@ export default function Page1() {
       }, [navigate]);
 
   return <div className='page1'>
-        <h1> Page1 </h1>
-        <p> My id : {id} </p> 
-        <ul>
+        <h1 class="text-4xl font-bold"> DashBoard </h1>
+       <Dashboard/>
+        {/* <ul>
         {posts.map((post)=>{
             return <li key={post.id}>
                 <NavLink to={post.id}>{post.title}</NavLink>
             </li>
         })}
-        </ul>  
+        </ul>   */}
     </div>
 }
 
