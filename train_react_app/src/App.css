@@ -98,11 +98,8 @@ body {
     height: 80vh;
     width: 30vw;
     background-size: cover;
-    /* color: black !important; */
+    color: black !important;
 }
-/* .page1 h1 {
-    color: black;
-  } */
 
 .page2 {
     background-image: url(https://images.unsplash.com/photo-1682688759457-52bcb4dc1578?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
