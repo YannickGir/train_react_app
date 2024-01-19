@@ -161,7 +161,7 @@ function App() {
                 <ThemeButton/>
                 <NetworkStatus/>
                 <button  style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'home/1/1'} >Page1</Link>
+                        <Link to={'home/1/1'} >Dashboard</Link>
                 </button> 
                 <button style={{padding:'8px', margin:'8px'}}>    
                     <Link to={'home/2/1'} >TaskList</Link>
