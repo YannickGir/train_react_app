@@ -110,6 +110,16 @@ body {
 
 .header{
     background-color: #282c34;
+    
+}
+.bottom_header{
+    display:flex;
+    flex-direction:row; 
+    align-items:center;
+}
+
+.bottom_header .icon {
+    margin-left: 10px;
 }
 
 .App-logo {

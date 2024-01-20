@@ -15,6 +15,7 @@ import ThemeButton from './components/ThemeButton';
 import {ThemeProvider} from './contexts/theme.context';
 import './styles/tailwind.css';
 import { TasksProvider } from './contexts/tasksProvider.context';
+import { AiOutlineHome } from "react-icons/ai";
 
 function App() {
     const [themeMode, setThemeMode] = useState('light')
@@ -86,9 +87,8 @@ function App() {
                             element:
                             <div>
                             <Page1/>
-                            <button style={{padding:'8px', margin:'8px'}}>  
-                                <Link to={'/home'} >Retour à l'Accueil</Link>
-                            </button>
+                            <AiOutlineHome  title="Delete?" type='link' to={'/home'} className='icon' />
+                            
                             </div>,
                             loader:() => fetch('https://jsonplaceholder.typicode.com/posts?_limit=18')
                             },
@@ -97,9 +97,7 @@ function App() {
                         element:
                         <div>
                         <Page2/>
-                        <button style={{padding:'8px', margin:'8px'}}>  
-                            <Link to={'/home'} >Retour à l'Accueil</Link>
-                        </button>
+                        
                         </div>
                         },
                         
@@ -119,10 +117,7 @@ function App() {
         return <>
         <h1> {error.message.data || 'erreur inconnue'} </h1> 
         <br/>
-        <h1> Merci de retourner à l'accueil... </h1>
-        <button style={{padding:'8px', margin:'8px'}}>  
-                    <Link to={'/home'} >Retour à l'Accueil</Link>
-        </button>
+        
         </>
     }
       
@@ -151,22 +146,33 @@ function App() {
             <header className='header'>
                 <ThemeButton/>
                 <NetworkStatus/>
-                <button style={{padding:'8px', margin:'8px'}}> 
+                <div>
+                  <button style={{padding:'8px', margin:'8px'}}> 
                             <Link to={'SignInPage'} >Se connecter</Link>
-                </button>  
+                </button>    
+                </div>
+                
             </header>)
           } else if (userSessionState) {
             verseHeader = (
             <header className='header'>
                 <ThemeButton/>
                 <NetworkStatus/>
-                <button  style={{padding:'8px', margin:'8px'}}> 
-                        <Link to={'home/1/1'} >Dashboard</Link>
-                </button> 
-                <button style={{padding:'8px', margin:'8px'}}>    
-                    <Link to={'home/2/1'} >TaskList</Link>
-                </button> 
-                <button onClick={handleLogout}>Déconnexion</button>
+                <div className='bottom_header'>
+                    <Link to="/home">
+                        <AiOutlineHome title="Delete?" className='icon' />
+                    </Link> 
+                    <button  style={{padding:'8px', margin:'8px'}}> 
+                            <Link to={'home/1/1'} >Dashboard</Link>
+                    </button> 
+                    <button style={{padding:'8px', margin:'8px'}}>    
+                        <Link to={'home/2/1'} >TaskList</Link>
+                    </button> 
+                    <button onClick={handleLogout}>Déconnexion</button>
+                </div>
+         
+
+                
             </header>)
             }
         return (
