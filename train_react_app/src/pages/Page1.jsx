@@ -19,7 +19,7 @@ export default function Page1() {
       }, [navigate]);
 
   return <div className='page1'>
-        <h1 class="text-4xl font-bold" > DashBoard </h1>
+        <h1 class="text-4xl font-bold"> DashBoard </h1>
        <Dashboard/>
         {/* <ul>
         {posts.map((post)=>{
