@@ -1,23 +1,30 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
 
     function DragAndDropImageUploader(){
+        const [images, setImages]= useState([]);
+        const [isDragging, setIsDragging]= useState(false);
+        const fileInputRef = useRef(null);
+
+        function selectFiles(){
+            fileInputRef.current.click();
+        }
         return(
             <div className='card'>
                 <div className='top'>
                     <p>Ajout d'une image</p>
                 </div>
-                <div className='drag area'>
+                <div className='drag-area'>
                     <span>
                         Glissez l'image ici
                     </span>
                     Sélectionnez et glissez l'image ici ou {""}
-                    <span className='select'>
+                    <span className='select' role='button' onClick={selectFiles}>
                         Parcourir
                     </span>
-                    <input name='file' type='file' className='file' multiple/>
+                    <input name='file' type='file' className='file' multiple ref={fileInputRef} />
                 </div>
                 <div className='container'>
                     <div className='image'>
@@ -53,15 +60,16 @@ const Dashboard = () => {
                     <input style={{ width: '40px' }} id='age' type='number' />
                     <label  htmlFor='hobbies'><h2> Hobbies</h2></label>
                     <input style={{ width: 'auto' }} id='hobbies' type='text' />
-                    <label><h2 >Gallerie Photos</h2></label>
+                    
                 </form> 
             </div>
         </div>  
-      <img
+        <label><h2 >Gallerie Photos</h2></label>
+        <DragAndDropImageUploader/>
+        <img
           src='https://youmatter.world/app/uploads/sites/3/2016/05/Vacances-productivite.jpg'
           alt='myAvatar'
         />
-        <DragAndDropImageUploader/>
     </div>
   );
 };

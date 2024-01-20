@@ -87,7 +87,7 @@ function App() {
                             element:
                             <div>
                             <Page1/>
-                            <AiOutlineHome  title="Delete?" type='link' to={'/home'} className='icon' />
+                            
                             
                             </div>,
                             loader:() => fetch('https://jsonplaceholder.typicode.com/posts?_limit=18')
