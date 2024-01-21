@@ -17,14 +17,22 @@ const Dashboard = () => {
                     <p>Ajout d'une image</p>
                 </div>
                 <div className='drag-area'>
-                    <span>
+                    {isDragging ? (
+                       <span>
                         Glissez l'image ici
-                    </span>
-                    Sélectionnez et glissez l'image ici ou {""}
-                    <span className='select' role='button' onClick={selectFiles}>
+                    </span> 
+                    ): (
+                    <>
+                        Sélectionnez et glissez l'image ici ou {""}
+                        <span className='select' role='button' onClick={selectFiles}>
                         Parcourir
-                    </span>
-                    <input name='file' type='file' className='file' multiple ref={fileInputRef} />
+                        </span> 
+                    </>
+                    )}
+                    
+                    
+                   
+                    <input name='file' type='file' className='file' multiple ref={fileInputRef}  />
                 </div>
                 <div className='container'>
                     <div className='image'>
