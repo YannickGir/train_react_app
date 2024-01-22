@@ -61,6 +61,13 @@ const Dashboard = () => {
       }
     }
 
+    function uploadImage() {
+        console.log('images :', images);
+    }
+
+    // const handleImageSend = async (name, email) => {
+    //     try {
+
     return (
       <div className="card">
         <div className="top">
@@ -101,7 +108,9 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        <button type="button">Upload</button>
+        <button type="button" onClick={uploadImage}>
+          Upload
+        </button>
         <div></div>
       </div>
     );
