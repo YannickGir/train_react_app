@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const { connectToDatabase } = require('./database/connection');
 const userRoute = require('./routes/user_routes')
+const data_userImages_routes = require('./routes/data_userImages_routes')
 const cors = require('cors');
 app.use(cors());
 app.use(express.urlencoded({extended:true}))
@@ -9,6 +10,7 @@ app.use(express.json())
 
 
 app.use('/', userRoute)
+app.use('/', data_userImages_routes)
 
 async function startServer() {
 

@@ -7,7 +7,7 @@ const getWeather = async (city)=> {
 const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=metric&key=VKYGEMJ5P6ZNVTEZ9PBBSBBAH&contentType=json`
     try {
         const response = await axios.get(url);
-        console.log('Réponse de l\'API :', response.data.queryCost);
+        console.log('Réponse de l\'API :', response.data.address);
         return response.data; 
     } catch (error) {
         console.error('Erreur lors de l\'appel API :', error);

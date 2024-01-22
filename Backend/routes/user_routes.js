@@ -6,6 +6,11 @@ const { getWeather } = require('../controller/weather')
 
 let selectedCity = 'Marseille';
 
+router.get('/test', async(req, res)=>
+{
+    console.log('test !!!!');
+})
+
 router.post('/signUp', addUser)
 router.post('/signIn', logUser)
 // router.post('/city', async (req, res) => {
