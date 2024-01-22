@@ -3,15 +3,12 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
-  Route,
   Link,
-  Switch,
   createBrowserRouter,
   RouterProvider,
   Outlet,
   useRouteError,
   useNavigation,
-  Spinner,
 } from "react-router-dom";
 import Page1 from "./pages/Page1";
 import Page2 from "./pages/Page2";
@@ -26,6 +23,10 @@ import { ThemeProvider } from "./contexts/theme.context";
 import "./styles/tailwind.css";
 import { TasksProvider } from "./contexts/tasksProvider.context";
 import { AiOutlineHome } from "react-icons/ai";
+
+import { Provider } from "react-redux";
+import  {configureStore} from "@reduxjs/toolkit";
+import rootReducer from "./reducers";
 
 function App() {
   const [themeMode, setThemeMode] = useState("light");
@@ -198,12 +199,19 @@ function App() {
     );
   }
 
+const store = configureStore({
+    reducer: rootReducer,
+    devTools:true,
+})
+
   return (
+    <Provider store={store}> 
     <TasksProvider>
       <div className="App">
         <RouterProvider router={Router} />
       </div>
     </TasksProvider>
+    </Provider>
   );
 }
 

@@ -13,29 +13,31 @@ export default function Page1() {
     const userSession = localStorage.getItem("userSession");
     if (userSession) {
       setAuthenticated(true);
-      const getImage = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:8800/sendImage?image=NewImage`
-          );
-          setGallery(response.data);
-        } catch (error) {
-          console.error(
-            "Erreur lors de la récupération des données météorologiques :",
-            error
-          );
-        }
-      };
-      getImage();
     } else {
       navigate("/home");
     }
   }, [navigate]);
 
+  const postImage = async (image) => {
+    try {
+        const response = await axios.post(
+            'http://localhost:8800/sendImage',
+            { images: image }
+          );
+          
+      setGallery(response.data);
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des données météorologiques :",
+        error
+      );
+    }
+  };
+
   return (
     <div className="page1">
       <h1 className="text-4xl font-bold"> DashBoard </h1>
-      <Dashboard />
+      <Dashboard postImage={postImage}/>
     </div>
   );
 }

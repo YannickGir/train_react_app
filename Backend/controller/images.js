@@ -2,23 +2,32 @@ const { image } = require("../models/Images");
 const client = require("../database/connection");
 const ImageModel = require("../models/Images");
 const UserModel = require("../models/Users");
+const sharedData = require('./sharedData');
 
 const addImage = async (req, res) => {
   try {
-    const image = await ImageModel.findOne({ image: req.body.name });
-    if (image) {
-        console.log(`L'image ${req.body.name} existe dans la collection.`);
+    const email = sharedData.getSharedEmail();
+    console.log('email: ' + email);
+    const images = req.body.images;
+    const currentUser = await UserModel.findOne({ email: email });
+    console.log("currentUser :" + currentUser);
+    const userId = currentUser._id;
+    let image = ''
+    for (const img of images) {
+     image = await ImageModel.findOne({ name: img.name, user_id: userId });
+     if (image) {
+        console.log(`L'image ${img.name} existe dans la collection.`);
         res.status(409).json({
             error: "Cette image est déjà présente. Veuillez en choisir une autre.",
         });
     } else {
-        const currentUser = await UserModel.findOne({ email: req.body.email });
-        console.log("currentUser._id :" + currentUser._id);
+        // const currentUser = await UserModel.findOne({ email: email });
+        
             if (currentUser) {
                 
-                const userId = currentUser.id;
+                
                 console.log('userId stocké  !');
-                const value = [req.body.name,userId];
+                const value = [img.name,userId];
                 console.log('value créée  !');
                 const createImage = async () => {
                     await ImageModel.create({
@@ -29,7 +38,7 @@ const addImage = async (req, res) => {
                 console.log('image créée  !');
                 createImage();
                 
-                res.status(200).json({ message: "L'image a été ajoutée avec succès !" });
+                res.json({ message: "L'image a été ajoutée avec succès !" });
                 console.log("image ajoutée à la BDD ! ");
            
             } else {
@@ -39,6 +48,9 @@ const addImage = async (req, res) => {
       }
       
     }
+    }
+    
+   
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "internal server Error" });

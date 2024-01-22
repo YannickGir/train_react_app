@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import "../styles/dashboard.css";
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   function DragAndDropImageUploader() {
     const [images, setImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
@@ -57,12 +57,14 @@ const Dashboard = () => {
               url: URL.createObjectURL(files[i]),
             },
           ]);
+          
         }
       }
     }
 
     function uploadImage() {
-        console.log('images :', images);
+        props.postImage(images)
+        console.log(images);
     }
 
     // const handleImageSend = async (name, email) => {

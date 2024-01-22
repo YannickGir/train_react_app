@@ -1,7 +1,7 @@
 const {User} = require("../models/Users")
 const client = require('../database/connection');
 const UserModel = require("../models/Users");
-
+const sharedData = require('./sharedData');
 const addUser = async (req, res) =>{
     
     try {
@@ -40,6 +40,7 @@ const logUser = async (req, res) =>{
     try { 
         const user = await UserModel.findOne({ email: req.body.email })
         if (user) {
+            sharedData.setSharedEmail(req.body.email); //store email in the module sharedData
             res.status(200).json({ message: "L'utilisateur est existant et peut être connecté !" });
             console.log(user);
         } 
