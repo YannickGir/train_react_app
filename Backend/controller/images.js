@@ -12,20 +12,18 @@ const addImage = async (req, res) => {
     const currentUser = await UserModel.findOne({ email: email });
     console.log("currentUser :" + currentUser);
     const userId = currentUser._id;
-    let image = ''
     for (const img of images) {
-     image = await ImageModel.findOne({ name: img.name, user_id: userId });
+     let image = await ImageModel.findOne({ name: img.name, user_id: userId });
      if (image) {
         console.log(`L'image ${img.name} existe dans la collection.`);
         res.status(409).json({
             error: "Cette image est déjà présente. Veuillez en choisir une autre.",
         });
-    } else {
-        // const currentUser = await UserModel.findOne({ email: email });
-        
-            if (currentUser) {
+        return;
+    } 
+}
                 
-                
+for (const img of images) {
                 console.log('userId stocké  !');
                 const value = [img.name,userId];
                 console.log('value créée  !');
@@ -37,19 +35,10 @@ const addImage = async (req, res) => {
                 };
                 console.log('image créée  !');
                 createImage();
+            }
                 
                 res.json({ message: "L'image a été ajoutée avec succès !" });
                 console.log("image ajoutée à la BDD ! ");
-           
-            } else {
-            console.log(
-            `L'e-mail ${req.body.email} n'existe pas dans la collection.`
-            );
-      }
-      
-    }
-    }
-    
    
   } catch (error) {
     console.log(error);
