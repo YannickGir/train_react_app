@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
-import axios from 'axios';
+import axios from "axios";
 export default function Page1() {
   const [authenticated, setAuthenticated] = useState(false);
   const navigate = useNavigate();
@@ -20,11 +20,10 @@ export default function Page1() {
 
   const postImage = async (image) => {
     try {
-        const response = await axios.post(
-            'http://localhost:8800/sendImage',
-            { images: image }
-          );
-          
+      const response = await axios.post("http://localhost:8800/sendImage", {
+        images: image,
+      });
+
       setGallery(response.data);
     } catch (error) {
       console.error(
@@ -37,7 +36,7 @@ export default function Page1() {
   return (
     <div className="page1">
       <h1 className="text-4xl font-bold"> DashBoard </h1>
-      <Dashboard postImage={postImage}/>
+      <Dashboard postImage={postImage} />
     </div>
   );
 }

@@ -1,7 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../styles/dashboard.css";
+import axios from "axios";
 
 const Dashboard = (props) => {
+
+const [imagesData, setImagesData] = useState([])
+
   function DragAndDropImageUploader() {
     const [images, setImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
@@ -117,6 +121,27 @@ const Dashboard = (props) => {
       </div>
     );
   }
+
+useEffect (()=> {
+    const loadImages = async () => {
+        try {
+            console.log("Avant l'appel à loadImages");
+            const response = await axios.get("http://localhost:8800/getImages");
+            console.log(response.data.images[0].name)
+            setImagesData(response.data.images)
+            console.log("Après l'appel à loadImages");
+            
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données des images",
+          error
+        );
+      }
+    }
+    loadImages()
+}, [])
+
+  
   return (
     <div className="dashboardWrapper" style={{ color: "black" }}>
       <div className="description_Wrap">
@@ -145,6 +170,12 @@ const Dashboard = (props) => {
         <h2>Gallerie Photos</h2>
       </label>
       <DragAndDropImageUploader />
+      {imagesData.map((image, index)=>(
+        <>
+        <p key={index}>{image.name}</p>
+        </>
+        
+      ))}
       <img
         src="https://youmatter.world/app/uploads/sites/3/2016/05/Vacances-productivite.jpg"
         alt="myAvatar"
