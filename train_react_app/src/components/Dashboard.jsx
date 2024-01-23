@@ -5,6 +5,7 @@ import axios from "axios";
 const Dashboard = (props) => {
 
 const [imagesData, setImagesData] = useState([])
+const [images, setImages] = useState([]);
 
   function DragAndDropImageUploader() {
     const [images, setImages] = useState([]);
@@ -59,6 +60,7 @@ const [imagesData, setImagesData] = useState([])
             {
               name: files[i].name,
               url: URL.createObjectURL(files[i]),
+              path: files[i].path,
             },
           ]);
           
@@ -66,11 +68,13 @@ const [imagesData, setImagesData] = useState([])
       }
     }
 
-    function uploadImage() {
-        props.postImage(images)
-        console.log(images);
-    }
-
+        function uploadImage() {
+               props.postImage(images)
+               console.log(images);
+               setImages([])
+               window.location.reload();
+           }
+       
     // const handleImageSend = async (name, email) => {
     //     try {
 
@@ -111,6 +115,7 @@ const [imagesData, setImagesData] = useState([])
                 &times;
               </span>
               <img src={images.url} alt={images.name} />
+              <p>chemin : {images.path}</p>
             </div>
           ))}
         </div>
@@ -139,7 +144,7 @@ useEffect (()=> {
       }
     }
     loadImages()
-}, [])
+}, [images])
 
   
   return (

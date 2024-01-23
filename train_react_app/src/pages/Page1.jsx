@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useLoaderData, useParams, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
@@ -25,6 +25,7 @@ export default function Page1() {
       });
 
       setGallery(response.data);
+      
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des données météorologiques :",
@@ -33,10 +34,14 @@ export default function Page1() {
     }
   };
 
+  const forceUpdateDashboard = useCallback(() => {
+    setGallery([]);
+  }, []);
+
   return (
     <div className="page1">
       <h1 className="text-4xl font-bold"> DashBoard </h1>
-      <Dashboard postImage={postImage} />
+      <Dashboard postImage={postImage} forceUpdate={forceUpdateDashboard} />
     </div>
   );
 }
