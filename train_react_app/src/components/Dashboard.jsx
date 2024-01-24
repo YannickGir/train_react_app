@@ -8,7 +8,6 @@ const [imagesData, setImagesData] = useState([])
 const [images, setImages] = useState([]);
 
   function DragAndDropImageUploader() {
-    const [images, setImages] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef(null);
 
@@ -26,6 +25,7 @@ const [images, setImages] = useState([]);
             ...prevImages,
             {
               name: files[i].name,
+              file: files[i],
               url: URL.createObjectURL(files[i]),
             },
           ]);
@@ -69,6 +69,20 @@ const [images, setImages] = useState([]);
     }
 
         function uploadImage() {
+            const formData = new FormData();
+            images.forEach((img) => {
+                console.log(img.file);
+                formData.append('file', img.file);
+              });
+          
+            axios.post('http://localhost:3000/upload', formData)
+              .then(response => {
+                console.log(response.data);
+              })
+              .catch(error => {
+                console.error('Error uploading image', error);
+              });
+
                props.postImage(images)
                console.log(images);
                setImages([])
@@ -144,7 +158,7 @@ useEffect (()=> {
       }
     }
     loadImages()
-}, [images])
+}, [])
 
   
   return (
@@ -176,15 +190,11 @@ useEffect (()=> {
       </label>
       <DragAndDropImageUploader />
       {imagesData.map((image, index)=>(
-        <>
-        <p key={index}>{image.name}</p>
-        </>
-        
+        <div key={index}>
+            <p> {image.name}</p>
+        </div>
       ))}
-      <img
-        src="https://youmatter.world/app/uploads/sites/3/2016/05/Vacances-productivite.jpg"
-        alt="myAvatar"
-      />
+     
     </div>
   );
 };
