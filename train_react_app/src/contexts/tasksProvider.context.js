@@ -7,7 +7,7 @@ export const TasksProvider = ({ children }) => {
     const [taskList, setTaskList] = useState([])
     const [editedTask, setEditedTask] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editedIndex, setEditedIndex] = useState(null);
+    const [editedIndex, setEditedIndex] = useState(-1);
     const [tasksListCompleted, setTasksListCompleted]= useState([])
     
         const addTaskToList = (task)=> {
@@ -90,6 +90,9 @@ export const TasksProvider = ({ children }) => {
             setEditedTask("");
         } else {
             addTaskToList(task);
+            if (editedIndex === null) {
+                setEditedIndex(taskList.length -1);
+              }
         }
     
         form.reset(); 

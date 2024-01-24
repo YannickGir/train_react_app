@@ -15,25 +15,31 @@ const UseSessionExpiration = ({ children }) => {
     const handleLogout = () => {
         try {
           const userSession = localStorage.getItem('userSession');
+          console.log('userSession:', userSession);
           if (userSession) {
             localStorage.removeItem('userSession');
+            console.log('User session removed');
             navigate('/');
-          } else {
-            console.error('Erreur lors de la déconnexion');
-          }
+          } 
         } catch (error) {
           console.error('Erreur lors de la déconnexion :', error);
         }
+        console.log('End handleLogout');
       };
 
     const handleInactive = () => {
-      const currentTime = new Date();
+        const userSession = localStorage.getItem('userSession');
+        if (userSession) {
+            const currentTime = new Date();
       const inactiveTime = currentTime - lastActivity;
       const expirationTime = 5 * 60 * 1000;
 
       if (inactiveTime > expirationTime) {
         handleLogout();
-      }
+      }  
+            }
+      
+      
     };
 
     // Set up event listeners for user activity
