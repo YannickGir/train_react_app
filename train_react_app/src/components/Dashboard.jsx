@@ -160,6 +160,17 @@ useEffect (()=> {
     loadImages()
 }, [])
 
+const handleDeleteImage = async (e)=> {
+    try {
+        let imageToDelete = imagesData[e]
+        console.log('image à supprimer:' + imageToDelete.name);
+        await axios.post('http://localhost:8800/deleteImage', { imageToDelete });
+        window.location.reload();
+
+    } catch (error){
+        console.error('Erreur lors de la suppression de l\'image :', error);
+    }
+}
   
   return (
     <div className="dashboardWrapper" style={{ color: "black" }}>
@@ -195,6 +206,7 @@ useEffect (()=> {
         <div key={index}>
             <p> {image.name}</p>
             <img src={link} alt="imagegallery"/>
+            <button key={index} onClick={()=> handleDeleteImage(index)}>Supprimer</button>
         </div>
       )})}
      

@@ -75,13 +75,17 @@ const getImages = async (req, res) => {
   }
 };
 
-const deleteImage = async ()=> {
+const deleteImage = async (req, res)=> {
     try {
         const email = sharedData.getSharedEmail();
+        console.log("email: " + email);
         const currentUser = await UserModel.findOne({ email: email });
-        const imageToDelete = req.body.image;
+        const userId = currentUser._id;
+        const imageToDelete = req.body.imageToDelete;
+        console.log('image à supprimer coté server:' + imageToDelete.name);
         await ImageModel.findOneAndDelete({ user_id: userId, name:imageToDelete.name});
-    }catch {
+        res.status(200).json('image supprimée !');
+    }catch(error) {
         console.log(error);
         res.status(500).json({ error: "internal server Error" });
     }
