@@ -87,4 +87,4 @@ const deleteImage = async ()=> {
     }
 }
 
-module.exports = { addImage, getImages };
+module.exports = { addImage, getImages, deleteImage };
