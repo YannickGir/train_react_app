@@ -189,11 +189,14 @@ useEffect (()=> {
         <h2>Gallerie Photos</h2>
       </label>
       <DragAndDropImageUploader />
-      {imagesData.map((image, index)=>(
+      {imagesData.map((image, index)=>{
+        let link = `/uploads/${image.name}`
+        return (
         <div key={index}>
             <p> {image.name}</p>
+            <img src={link} alt="imagegallery"/>
         </div>
-      ))}
+      )})}
      
     </div>
   );
