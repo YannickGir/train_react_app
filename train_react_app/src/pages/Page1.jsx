@@ -40,7 +40,7 @@ export default function Page1() {
 
   return (
     <div className="page1">
-      <h1 className="text-4xl font-bold"> DashBoard </h1>
+      <h2 className="text-4xl font-bold"> DashBoard </h2>
       <Dashboard postImage={postImage} forceUpdate={forceUpdateDashboard} />
     </div>
   );

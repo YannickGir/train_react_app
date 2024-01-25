@@ -10,7 +10,8 @@ import useTheme from '../contexts/theme.context';
         else lightTheme ()
     }
   return (
-    <label className="relative inline-flex items-center cursor-pointer">
+    <div>
+        <label className="relative inline-flex items-center cursor-pointer">
         <input
             type="checkbox"
             value=""
@@ -26,6 +27,8 @@ import useTheme from '../contexts/theme.context';
             </div>
         </div>
     </label>
+    </div>
+    
   )
 }
 

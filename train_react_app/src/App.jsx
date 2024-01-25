@@ -25,7 +25,7 @@ import { TasksProvider } from "./contexts/tasksProvider.context";
 import { AiOutlineHome } from "react-icons/ai";
 
 import { Provider } from "react-redux";
-import  {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
 
 function App() {
@@ -156,8 +156,11 @@ function App() {
     if (!userSessionState) {
       verseHeader = (
         <header className="header">
-          <ThemeButton />
-          <NetworkStatus />
+          <div className="top_header">
+            <NetworkStatus />
+            <ThemeButton />
+          </div>
+
           <div>
             <button style={{ padding: "8px", margin: "8px" }}>
               <Link to={"SignInPage"}>Se connecter</Link>
@@ -168,8 +171,11 @@ function App() {
     } else if (userSessionState) {
       verseHeader = (
         <header className="header">
-          <ThemeButton />
-          <NetworkStatus />
+          <div className="top_header">
+            <ThemeButton />
+            <NetworkStatus />
+          </div>
+
           <div className="bottom_header">
             <Link to="/home">
               <AiOutlineHome title="Delete?" className="icon" />
@@ -199,18 +205,18 @@ function App() {
     );
   }
 
-const store = configureStore({
+  const store = configureStore({
     reducer: rootReducer,
-    devTools:true,
-})
+    devTools: true,
+  });
 
   return (
-    <Provider store={store}> 
-    <TasksProvider>
-      <div className="App">
-        <RouterProvider router={Router} />
-      </div>
-    </TasksProvider>
+    <Provider store={store}>
+      <TasksProvider>
+        <div className="App">
+          <RouterProvider router={Router} />
+        </div>
+      </TasksProvider>
     </Provider>
   );
 }

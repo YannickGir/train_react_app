@@ -5,9 +5,8 @@ import axios from "axios";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const Dashboard = (props) => {
-
-const [imagesData, setImagesData] = useState([])
-const [images, setImages] = useState([]);
+  const [imagesData, setImagesData] = useState([]);
+  const [images, setImages] = useState([]);
 
   function DragAndDropImageUploader() {
     const [isDragging, setIsDragging] = useState(false);
@@ -65,32 +64,32 @@ const [images, setImages] = useState([]);
               path: files[i].path,
             },
           ]);
-          
         }
       }
     }
 
-        function uploadImage() {
-            const formData = new FormData();
-            images.forEach((img) => {
-                console.log(img.file);
-                formData.append('file', img.file);
-              });
-          
-            axios.post('http://localhost:8800/upload', formData)
-              .then(response => {
-                console.log(response.data);
-              })
-              .catch(error => {
-                console.error('Error uploading image', error);
-              });
+    function uploadImage() {
+      const formData = new FormData();
+      images.forEach((img) => {
+        console.log(img.file);
+        formData.append("file", img.file);
+      });
 
-               props.postImage(images)
-               console.log(images);
-               setImages([])
-               window.location.reload();
-           }
-       
+      axios
+        .post("http://localhost:8800/upload", formData)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error uploading image", error);
+        });
+
+      props.postImage(images);
+      console.log(images);
+      setImages([]);
+      window.location.reload();
+    }
+
     // const handleImageSend = async (name, email) => {
     //     try {
 
@@ -143,73 +142,81 @@ const [images, setImages] = useState([]);
     );
   }
 
-useEffect (()=> {
+  useEffect(() => {
     const loadImages = async () => {
-        try {
-            console.log("Avant l'appel à loadImages");
-            const response = await axios.get("http://localhost:8800/getImages");
-            console.log(response.data.images[0].name)
-            setImagesData(response.data.images)
-            console.log("Après l'appel à loadImages");
-            
+      try {
+        console.log("Avant l'appel à loadImages");
+        const response = await axios.get("http://localhost:8800/getImages");
+        console.log(response.data.images[0].name);
+        setImagesData(response.data.images);
+        console.log("Après l'appel à loadImages");
       } catch (error) {
         console.error(
           "Erreur lors de la récupération des données des images",
           error
         );
       }
-    }
-    loadImages()
-}, [])
+    };
+    loadImages();
+  }, []);
 
-const handleDeleteImage = async (e)=> {
+  const handleDeleteImage = async (e) => {
     try {
-        let imageToDelete = imagesData[e]
-        console.log('image à supprimer:' + imageToDelete.name);
-        await axios.post('http://localhost:8800/deleteImage', { imageToDelete });
-        window.location.reload();
-
-    } catch (error){
-        console.error('Erreur lors de la suppression de l\'image :', error);
+      let imageToDelete = imagesData[e];
+      console.log("image à supprimer:" + imageToDelete.name);
+      await axios.post("http://localhost:8800/deleteImage", { imageToDelete });
+      window.location.reload();
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'image :", error);
     }
-}
+  };
 
+  const CARDS = 10;
+  const MAX_VISIBILITY = 3;
 
-const CARDS = 10;
-const MAX_VISIBILITY = 3;
-
-const Card = ({title, content}) => (
-  <div className='card'>
-    <h2>{title}</h2>
-    <p>{content}</p>
-  </div>
-);
-
-const Carousel = ({children}) => {
-  const [active, setActive] = useState(2);
-  const count = React.Children.count(children);
-  
-  return (
-    <div className='carousel'>
-      {active > 0 && <button className='nav left' onClick={() => setActive(i => i - 1)}><FaChevronLeft/></button>}
-      {React.Children.map(children, (child, i) => (
-        <div className='card-container' style={{
-            '--active': i === active ? 1 : 0,
-            '--offset': (active - i) / 3,
-            '--direction': Math.sign(active - i),
-            '--abs-offset': Math.abs(active - i) / 3,
-            'pointer-events': active === i ? 'auto' : 'none',
-            'opacity': Math.abs(active - i) >= MAX_VISIBILITY ? '0' : '1',
-            'display': Math.abs(active - i) > MAX_VISIBILITY ? 'none' : 'block',
-          }}>
-          {child}
-        </div>
-      ))}
-      {active < count - 1 && <button className='nav right' onClick={() => setActive(i => i + 1)}><FaChevronRight/></button>}
+  const Card = ({ title, content }) => (
+    <div className="card_gallery">
+      <h2>{title}</h2>
+      <p>{content}</p>
     </div>
   );
-};
-  
+
+  const Carousel = ({ children }) => {
+    const [active, setActive] = useState(2);
+    const count = React.Children.count(children);
+
+    return (
+      <div className="carousel">
+        {active > 0 && (
+          <button className="nav left" onClick={() => setActive((i) => i - 1)}>
+            <FaChevronLeft />
+          </button>
+        )}
+        {React.Children.map(children, (child, i) => (
+          <div
+            className="card-container"
+            style={{
+              "--active": i === active ? 1 : 0,
+              "--offset": (active - i) / 3,
+              "--direction": Math.sign(active - i),
+              "--abs-offset": Math.abs(active - i) / 3,
+              "pointer-events": active === i ? "auto" : "none",
+              opacity: Math.abs(active - i) >= MAX_VISIBILITY ? "0" : "1",
+              display: Math.abs(active - i) > MAX_VISIBILITY ? "none" : "block",
+            }}
+          >
+            {child}
+          </div>
+        ))}
+        {active < count - 1 && (
+          <button className="nav right" onClick={() => setActive((i) => i + 1)}>
+            <FaChevronRight />
+          </button>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="dashboardWrapper" style={{ color: "black" }}>
       <div className="description_Wrap">
@@ -224,39 +231,46 @@ const Carousel = ({children}) => {
         <div className="description">
           <form>
             <label htmlFor="age">
-              <h2>Age </h2>
+              <h3>Age </h3>
             </label>
             <input style={{ width: "40px" }} id="age" type="number" />
             <label htmlFor="hobbies">
-              <h2> Hobbies</h2>
+              <h3> Hobbies</h3>
             </label>
             <input style={{ width: "auto" }} id="hobbies" type="text" />
           </form>
         </div>
       </div>
       <label>
-        <h2>Gallerie Photos</h2>
+        <h3>Gallerie Photos</h3>
       </label>
       <DragAndDropImageUploader />
-      {imagesData.map((image, index)=>{
-        let link = `/uploads/${image.name}`
-        return (
-        <div key={index}>
-            <p> {image.name}</p>
-            <img src={link} alt="imagegallery"/>
-            <button key={index} onClick={()=> handleDeleteImage(index)}>Supprimer</button>
-        </div>
-      )})}
-     <div className='app'>
-        <div className="gallery-wrapper">
-    <Carousel>
-      {[...new Array(CARDS)].map((_, i) => (
-        <Card title={'Card ' + (i + 1)} content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'/>
-      ))}
-    </Carousel>
-        </div>
-   
-  </div>
+      <div className="gallery-wrapper">
+        <Carousel>
+          {imagesData.map((image, index) => {
+            let link = `/uploads/${image.name}`;
+            let content = <img className="imageCarousel" src={link} alt="imagegallery" />;
+            return (
+              <div key={index}>
+                <Card title={image.name} content={content} />
+                {/* <p> {image.name}</p>
+            <img src={link} alt="imagegallery"/> */}
+                <button key={index} onClick={() => handleDeleteImage(index)}>
+                  Supprimer
+                </button>
+              </div>
+            );
+          })}
+        </Carousel>
+      </div>
+
+      {/* <div className="gallery-wrapper">
+                    <Carousel>
+                    {[...new Array(CARDS)].map((_, i) => (
+                        <Card title={'Card ' + (i + 1)} content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'/>
+                    ))}
+                    </Carousel>
+                </div> */}
     </div>
   );
 };
