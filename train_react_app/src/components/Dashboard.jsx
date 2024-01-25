@@ -75,7 +75,7 @@ const [images, setImages] = useState([]);
                 formData.append('file', img.file);
               });
           
-            axios.post('http://localhost:3000/upload', formData)
+            axios.post('http://localhost:8800/upload', formData)
               .then(response => {
                 console.log(response.data);
               })
