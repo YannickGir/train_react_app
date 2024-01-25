@@ -6,12 +6,15 @@ const sharedData = require("./sharedData");
 
 const addImage = async (req, res) => {
   try {
+    
     const email = sharedData.getSharedEmail();
     console.log("email: " + email);
     const images = req.body.images;
     const currentUser = await UserModel.findOne({ email: email });
-    console.log("currentUser :" + currentUser);
+    // console.log("currentUser :" + currentUser);
+    console.log("currentUser._id :" + currentUser._id);
     const userId = currentUser._id;
+    
     for (const img of images) {
       let image = await ImageModel.findOne({ name: img.name, user_id: userId });
       if (image) {
@@ -25,13 +28,15 @@ const addImage = async (req, res) => {
     }
 
     for (const img of images) {
+     const imagePath = 'uploads/' + img.name;
       console.log("userId stocké  !");
-      const value = [img.name, userId];
+      const value = [img.name, imagePath, userId];
       console.log("value créée  !");
       const createImage = async () => {
         await ImageModel.create({
           name: value[0],
-          user_id: value[1],
+          path: value[1],
+          user_id: value[2],
         });
       };
       console.log("image créée  !");
@@ -53,9 +58,10 @@ const getImages = async (req, res) => {
     const currentUser = await UserModel.findOne({ email: email });
     console.log("currentUser :" + currentUser);
     const userId = currentUser._id;
+    console.log("currentUser._id :" + currentUser._id);
     let images = await ImageModel.find({ user_id: userId });
     if (images.length > 0) {
-      console.log(image);
+      console.log('images:' + images);
       res.status(200).json({images});
       return;
     } else {
@@ -68,5 +74,17 @@ const getImages = async (req, res) => {
     res.status(500).json({ error: "internal server Error" });
   }
 };
+
+const deleteImage = async ()=> {
+    try {
+        const email = sharedData.getSharedEmail();
+        const currentUser = await UserModel.findOne({ email: email });
+        const imageToDelete = req.body.image;
+        await ImageModel.findOneAndDelete({ user_id: userId, name:imageToDelete.name});
+    }catch {
+        console.log(error);
+        res.status(500).json({ error: "internal server Error" });
+    }
+}
 
 module.exports = { addImage, getImages };

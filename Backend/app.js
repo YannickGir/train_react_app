@@ -4,13 +4,32 @@ const { connectToDatabase } = require("./database/connection");
 const userRoute = require("./routes/user_routes");
 const data_userImages_routes = require("./routes/data_userImages_routes");
 const cors = require("cors");
-const { getImages } = require("./controller/images");
+
+const multer = require('multer');
+
+
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/", userRoute);
 app.use("/", data_userImages_routes);
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '../train_react_app/public/uploads/'); // folder to save files
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // to use original name of file
+    },
+  });
+  
+  const upload = multer({ storage: storage });
+
+  
+app.post('/upload', upload.single('file'), (req, res) => {
+    res.send('File uploaded!');
+  });
 
 async function startServer() {
   try {
