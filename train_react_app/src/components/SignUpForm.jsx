@@ -27,21 +27,21 @@ const SignUpForm= ({ onSignUp }) => {
             <form className='forms'>
     <label>
     <h2> Username </h2> 
-        <input onChange={handleChange} className='inputform' type="text" name="name" value={userDatas.username} />
+        <input onChange={handleChange} className='inputform' style={{color:'black'}} type="text" name="name" value={userDatas.username} />
     </label>
 
     <label>
         <h2> Email </h2> 
-        <input onChange={handleChange} className='inputform' type="text" name="email" value={userDatas.email}/>
-    </label>
-
+        <input onChange={handleChange} className='inputform' style={{color:'black'}} type="text" name="email" value={userDatas.email}/>
+    </label> <br/>
+    <button className='customButton' onClick={handleClick} >Valider</button> 
     {/* <label>
         <h2> password </h2> 
         <input onChange={handleChange} className='inputform' type="text" name="password_hash" value={userDatas.password_hash} />
     </label> */}
 
     </form>
-    <button onClick={handleClick} >Inscription</button> 
+    
             
         </div>
     )

@@ -27,6 +27,18 @@ color: rgb(0, 0, 0);
     font-size: 16px;
 }
 
+.customButton2 {
+    background-color:#3855fa ;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.customButton2:hover {
+    background-color:#0f0fe0;
+}
+
 .customButton:hover {
     background-color:#38b113;
 }
