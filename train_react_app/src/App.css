@@ -20,7 +20,7 @@ color: rgb(0, 0, 0);
 } */
 
 .customButton {
-    background-color: #a0d4e0;
+    background-color:#75c48d ;
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
@@ -28,7 +28,7 @@ color: rgb(0, 0, 0);
 }
 
 .customButton:hover {
-    background-color:#75c48d;
+    background-color:#38b113;
 }
 
 .icon{
@@ -220,4 +220,5 @@ body {
   .modal button:hover {
     background: #2980b9;
   }
+  
   

@@ -34,14 +34,15 @@ const SignInForm= ({ onSignIn }) => {
         <h2> Email </h2> 
         <input onChange={handleChange} className='inputform' type="text" name="email" value={userDatas.email}/>
     </label>
-
+    <br/>
+    <button className="customButton" onClick={handleClick} >Se connecter</button>
     {/* <label>
         <h2> password </h2> 
         <input onChange={handleChange} className='inputform' type="text" name="password_hash" value={userDatas.password_hash} />
     </label> */}
 
     </form>
-    <button onClick={handleClick} >Se connecter</button> 
+     
             
         </div>
     )

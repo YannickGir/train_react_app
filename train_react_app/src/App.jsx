@@ -61,7 +61,7 @@ function App() {
             <div>
               <SignUpPage />
               <button style={{ padding: "8px", margin: "8px" }}>
-                <Link to={"/SignInPage"}>Se connecter</Link>
+                <Link to={"/SignInPage"}>S'identifier</Link>
               </button>
             </div>
           ),
@@ -72,7 +72,7 @@ function App() {
             <div>
               <SignInPage />
               <button style={{ padding: "8px", margin: "8px" }}>
-                <Link to={"/SignUpPage"}>s'inscrire</Link>
+                <Link className="customButton" to={"/SignUpPage"}>s'inscrire</Link>
               </button>
             </div>
           ),
@@ -163,7 +163,7 @@ function App() {
 
           <div>
             <button style={{ padding: "8px", margin: "8px" }}>
-              <Link to={"SignInPage"}>Se connecter</Link>
+              <Link to={"SignInPage"}>S'identifier</Link>
             </button>
           </div>
         </header>

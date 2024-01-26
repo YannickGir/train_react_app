@@ -27,18 +27,17 @@ const TasksForm = ()=> {
                 <form onSubmit={handleSubmit} >
                     <label htmlFor='entryTask'> Entrez une tâche ici : </label> <br/>
                     <input type='text' name='entryTask' id='entryTask' style={{color: 'black'}}/><br/>
-                    <button type='submit' className='customButton'>Ajouter une tâche</button>
-
+                    <button className='customButton'>Ajouter une tâche</button>
                     <div style={{marginTop:'20px'}}>
                         <label> Liste de vos tâches : </label> <br/>
                         {taskList.map((task, index)=>
                                 (
                                         <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                                             <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
-                                            <AiOutlineForm onClick={() => openModal(index)} className='iconModify' />
+                                            <AiOutlineForm title='Modifier la tache' onClick={() => openModal(index)} className='iconModify custom-button' />
                                             
-                                            <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon' />
-                                            <AiOutlineCheck onClick={()=>{handleTaskCompleted(task)}} className='iconValidation'/>
+                                            <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon custom-button' />
+                                            <AiOutlineCheck title='Mettre en tâche complétée' onClick={()=>{handleTaskCompleted(task)}} className='iconValidation'/>
                                             </div>
                                 )
                             )   
@@ -69,7 +68,7 @@ const TasksForm = ()=> {
             (
                     <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                         <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
-                        <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteCompletedTask(index)} className='icon' />
+                        <AiOutlineDelete  title="Effacer ?" type='button' onClick={()=> deleteCompletedTask(index)} className='icon custom-button' />
                         </div>
             ) 
         )   :  <h2>Aucune tâche complétée actuellement</h2>
