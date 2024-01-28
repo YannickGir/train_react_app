@@ -1,37 +1,40 @@
-// Selector.jsx
-import React, { Fragment, useState } from 'react';
-import { Combobox, Transition } from '@headlessui/react';
-import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { Fragment, useEffect, useState } from 'react'
+import { Combobox, Transition } from '@headlessui/react'
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-const Selector = ({ data, selected, setSelected, onSelectCity }) => {
-  const [query, setQuery] = useState('');
+const Selector = ({data, selected, setSelected, onSelectCity }) => {
+
+  const [query, setQuery] = useState('')
 
   const filteredSelected =
     query === ''
-      ? []
+      ? data
       : data.filter((selection) =>
           selection.name
             .toLowerCase()
             .replace(/\s+/g, '')
             .includes(query.toLowerCase().replace(/\s+/g, ''))
-        );
+        )
 
   return (
     <div className="w-72">
-      <Combobox
-        value={selected}
-        onChange={(selected) => {
-          console.log('Selected:', selected);
-          setSelected(selected);
-        }}
+      <Combobox 
+      value={selected} 
+      onChange={(selected) => {
+        console.log('Selected:', selected);
+        setSelected(selected);
+     }}
       >
         <div className="relative mt-1">
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-black text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-black focus:ring-0 custom-selector-input"
-              displayValue={(item) => (item && item.name) || ''}
+              displayValue={(person) => (person && person.name) || ''}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Choisir..."
+              onSelect={() => {
+                console.log('Selected:', selected);
+                onSelectCity && onSelectCity(selected);
+              }}
             />
             <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
               <ChevronUpDownIcon
@@ -53,19 +56,17 @@ const Selector = ({ data, selected, setSelected, onSelectCity }) => {
                   Nothing found.
                 </div>
               ) : (
-                filteredSelected.map((item) => (
+                filteredSelected.map((selection) => (
                   <Combobox.Option
-                    key={item.id}
-                    value={item}
+                    key={selection.id}
                     className={({ active }) =>
                       `relative cursor-default select-none py-2 pl-10 pr-4 ${
                         active ? 'bg-teal-600 text-black' : 'text-gray-900'
                       }`
                     }
-                    onSelect={() => {
-                      setSelected(item);
-                      onSelectCity && onSelectCity(item);
-                    }}
+                    value={selection}
+        
+                     
                   >
                     {({ selected, active }) => (
                       <>
@@ -74,14 +75,16 @@ const Selector = ({ data, selected, setSelected, onSelectCity }) => {
                             selected ? 'font-medium' : 'font-normal'
                           }`}
                         >
-                          {item.name}
+                          {selection.name}
                         </span>
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
                               active ? 'text-black' : 'text-teal-600'
                             }`}
-                          />
+                          >
+                            {/* <CheckIcon className="h-5 w-5" aria-hidden="true" /> */}
+                          </span>
                         ) : null}
                       </>
                     )}
@@ -93,7 +96,8 @@ const Selector = ({ data, selected, setSelected, onSelectCity }) => {
         </div>
       </Combobox>
     </div>
-  );
-};
+  )
+}
 
 export default Selector;
+
