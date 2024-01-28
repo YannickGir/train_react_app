@@ -108,7 +108,7 @@ export default function Home() {
                     <div style={{display: 'flex', flexDirection: 'column', marginLeft:'30%', marginTop:'5%', marginBottom:'5%'}}
                         className= 'selection:text-black selection:bg-teal-500 bg-gradient-to-r from-teal-400 to-teal-500'>
                             <div style={{ marginBottom:'5%'}} className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>
-                            <p style={{ marginRight:'3%'}}>Pays : </p>  
+                            <p style={{ marginRight:'3%'}}> Pays : </p>  
                                 <Selector  data={countryData} selected={country} setSelected={setCountry}  />
                             </div> 
                             {state && (<div style={{ marginBottom:'5%'}} className='flex flex-wrap gap-3 bg-teal-300 rounded-lg p-8'>

@@ -7,8 +7,8 @@ const Selector = ({data, selected, setSelected, onSelectCity }) => {
   const [query, setQuery] = useState('')
 
   const filteredSelected =
-    query === ''
-      ? data
+    query === null
+      ? []
       : data.filter((selection) =>
           selection.name
             .toLowerCase()
@@ -19,7 +19,7 @@ const Selector = ({data, selected, setSelected, onSelectCity }) => {
   return (
     <div className="w-72">
       <Combobox 
-      value={selected} 
+      defaultSelectedItem={null}
       onChange={(selected) => {
         console.log('Selected:', selected);
         setSelected(selected);
