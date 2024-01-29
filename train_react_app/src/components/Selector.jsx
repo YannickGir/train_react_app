@@ -29,7 +29,8 @@ const Selector = ({data, selected, setSelected, onSelectCity }) => {
           <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-black text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
             <Combobox.Input
               className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-black focus:ring-0 custom-selector-input"
-              displayValue={(person) => (person && person.name) || ''}
+              displayValue={(place) => (place && place.name) || ''}
+              placeholder='choisir un lieu'
               onChange={(event) => setQuery(event.target.value)}
               onSelect={() => {
                 console.log('Selected:', selected);
