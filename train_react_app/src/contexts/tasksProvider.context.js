@@ -37,18 +37,23 @@ export const TasksProvider = ({ children }) => {
                 setEditedIndex(null);
             }
         };
-        const handleTaskCompleted = (task)=> {
+      
+        const handleTaskCompleted = (completedTaskIndex) => {
             const confirmDelete = window.confirm("Êtes-vous sûr d'avoir complété cette tâche ?");
+            const completedTask = taskList[completedTaskIndex];
             if (confirmDelete) {
-            const getTasksListCompleted = [...tasksListCompleted, task];
-            localStorage.setItem('tasksCompleted', JSON.stringify(getTasksListCompleted))
-           const tasksListCompletedFromStorage = JSON.parse(localStorage.getItem('tasksCompleted'))
-            setTasksListCompleted(tasksListCompletedFromStorage)
-            deleteCompletedTaskFromTaskList(task)
-            console.log(tasksListCompleted)
-        }
-        }
-
+                
+                const updatedTasksListCompleted = [...tasksListCompleted, completedTask];
+                localStorage.setItem('tasksCompleted', JSON.stringify(updatedTasksListCompleted));
+                console.log('completedTask:' + completedTask);
+                
+                const updatedTaskList = taskList.filter(task => task !== completedTask);
+                setTaskList(updatedTaskList);
+        
+                
+                setTasksListCompleted(updatedTasksListCompleted);
+            }
+        };
         const deleteCompletedTaskFromTaskList = (index) => {
                 const updatedTaskList = [...taskList];
                 updatedTaskList.splice(index, 1);

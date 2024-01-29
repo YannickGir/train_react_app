@@ -37,7 +37,7 @@ const TasksForm = ()=> {
                                             <AiOutlineForm title='Modifier la tache' placeholder={task} onClick={() =>{setEditingTask(task); openModal(index)}} className='iconModify custom-button' />
                                             
                                             <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon custom-button' />
-                                            <AiOutlineCheck title='Mettre en tâche complétée' onClick={()=>{handleTaskCompleted(task)}} className='iconValidation'/>
+                                            <AiOutlineCheck title='Mettre en tâche complétée' onClick={()=>{handleTaskCompleted(index)}} className='iconValidation'/>
                                             </div>
                                 )
                             )   
