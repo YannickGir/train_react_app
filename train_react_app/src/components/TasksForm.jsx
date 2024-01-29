@@ -4,10 +4,10 @@ import {AiOutlineDelete, AiOutlineCheck, AiOutlineForm} from 'react-icons/ai';
 import '../styles/ButtonStyles.css';
 
 const TasksForm = ()=> {
-    const { handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal,  handleTaskCompleted,tasksListCompleted,  setTasksListCompleted } = useTasks();
+    const {editingTask, setEditingTask, handleSubmit, taskList, openModal, deleteTask, isModalOpen, editedTask, setEditedTask, handleModalSubmit, closeModal,  handleTaskCompleted,tasksListCompleted,  setTasksListCompleted } = useTasks();
     
     const [isCompletedScreen, setIsCompletedScreen] = useState (false);
-
+    
    
 
 
@@ -33,8 +33,8 @@ const TasksForm = ()=> {
                         {taskList.map((task, index)=>
                                 (
                                         <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                                            <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
-                                            <AiOutlineForm title='Modifier la tache' onClick={() => openModal(index)} className='iconModify custom-button' />
+                                            <h3 type='text' style={{color: 'black', marginLeft:'20%', padding:'auto'}}> {task}</h3>
+                                            <AiOutlineForm title='Modifier la tache' placeholder={task} onClick={() =>{setEditingTask(task); openModal(index)}} className='iconModify custom-button' />
                                             
                                             <AiOutlineDelete  title="Delete?" type='button' onClick={()=> deleteTask(index)} className='icon custom-button' />
                                             <AiOutlineCheck title='Mettre en tâche complétée' onClick={()=>{handleTaskCompleted(task)}} className='iconValidation'/>
@@ -50,11 +50,11 @@ const TasksForm = ()=> {
                         <input
                             style={{color:'black'}}
                             type='text'
-                            value={editedTask}
-                            onChange={(e) => setEditedTask(e.target.value)}
+                            value={editingTask}
+                            onChange={(e) => {setEditingTask(e.target.value);setEditedTask(editingTask)}}
                         />
                         <button onClick={handleModalSubmit} className='customButton'>
-                            Valider
+                            Valider  
                         </button>
                         <button onClick={closeModal} className='customButton'>
                             Annuler
@@ -67,7 +67,7 @@ const TasksForm = ()=> {
         {tasksListCompleted && tasksListCompleted.length > 0 ?  tasksListCompleted.map((task, index)=>
             (
                     <div key={index} style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
-                        <input type='text' value={task} style={{color: 'black', marginLeft:'20%', padding:'auto'}}/> 
+                        <h3 type='text' style={{color: 'black', marginLeft:'20%', padding:'auto'}}> {task}</h3>
                         <AiOutlineDelete  title="Effacer ?" type='button' onClick={()=> deleteCompletedTask(index)} className='icon custom-button' />
                         </div>
             ) 

@@ -9,6 +9,7 @@ export const TasksProvider = ({ children }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editedIndex, setEditedIndex] = useState(-1);
     const [tasksListCompleted, setTasksListCompleted]= useState([])
+    const [editingTask, setEditingTask] = useState("");
     
         const addTaskToList = (task)=> {
             setTaskList((previousTaskList) => {
@@ -59,6 +60,7 @@ export const TasksProvider = ({ children }) => {
             setEditedIndex(index);
             setEditedTask(taskList[index]);
             setIsModalOpen(true);
+            setEditingTask(taskList[index]);
         };
     
         const closeModal = () => {
@@ -70,7 +72,7 @@ export const TasksProvider = ({ children }) => {
     
         const handleModalSubmit = () => {
             if (editedIndex !== null) {
-                updateTask(editedIndex, editedTask);
+                updateTask(editedIndex, editingTask);
             }
             closeModal();
         };
@@ -86,8 +88,9 @@ export const TasksProvider = ({ children }) => {
         // console.log(elements);
        
         if (editedTask !== "") {
-            updateTask(taskList.findIndex((t) => t === editedTask), task);
+            updateTask(editedIndex, task);
             setEditedTask("");
+            setEditedIndex(null)
         } else {
             addTaskToList(task);
             if (editedIndex === null) {
@@ -99,7 +102,7 @@ export const TasksProvider = ({ children }) => {
     }
 
   return (
-    <TasksContext.Provider value={{ taskList, addTaskToList, deleteTask, openModal, closeModal, handleModalSubmit, handleSubmit, isModalOpen, setEditedTask, handleTaskCompleted, tasksListCompleted, setTasksListCompleted }}>
+    <TasksContext.Provider value={{editingTask, setEditingTask, taskList, addTaskToList, deleteTask, openModal, closeModal, handleModalSubmit, handleSubmit, isModalOpen, setEditedTask, handleTaskCompleted, tasksListCompleted, setTasksListCompleted }}>
       {children}
     </TasksContext.Provider>
   );
