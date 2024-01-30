@@ -7,7 +7,7 @@ const NetworkStatus = () => {
     <div>
         <p
             style={{color: networkStatus ? 'green' : 'red'}}
-        >{networkStatus ? 'Connecté à internet !' : 'Déconnecté à internet...'} 
+        >{networkStatus ? 'Connecté à internet !' : 'Déconnecté d\'internet...'} 
         </p>
 
     </div>

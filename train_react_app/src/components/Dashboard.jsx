@@ -7,15 +7,60 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 const Dashboard = (props) => {
   const [imagesData, setImagesData] = useState([]);
   const [images, setImages] = useState([]);
+  const [avatar, setAvatar]=useState([]);
+
+  const fileInputRefAvatar = useRef(null);
+  function selectFileAvatar() {
+    fileInputRefAvatar.current.click();
+  }
+
+  function uploadAvatar() {
+    const formData = new FormData();
+    images.forEach((img) => {
+      console.log(img.file);
+      formData.append("file", img.file);
+    });
+
+    axios
+      .post("http://localhost:8800/upload", formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error uploading image", error);
+      });
+
+    props.postImage(images);
+    console.log(images);
+    setImages([]);
+    window.location.reload();
+  }
+
+  function onFileSelectAvatar(event) {
+    if (!event.target || !event.target.files || event.target.files.length === 0) return;
+
+  const file = event.target.files[0];
+    if (file === null) return;
+    
+    //   if (file[i].type.split("/")[0] !== "image") continue;
+    if (!avatar || avatar.name !== file.name) {
+        setAvatar(
+          {
+            name: file.name,
+            file: file,
+            url: URL.createObjectURL(file),
+          },
+        );
+        }
+  }
+
 
   function DragAndDropImageUploader() {
     const [isDragging, setIsDragging] = useState(false);
     const fileInputRef = useRef(null);
-
     function selectFiles() {
       fileInputRef.current.click();
     }
-
     function onFileSelect(event) {
       const files = event.target.files;
       if (files.length === 0) return;
@@ -222,6 +267,21 @@ const Dashboard = (props) => {
       <div className="description_Wrap">
         <div className="myAvatar">
           <h2>Prénom</h2>
+          <>
+            Sélectionnez et glissez l'image ici ou {""}
+            <span className="select" role="button" onClick={selectFileAvatar}>
+              Parcourir
+            </span>
+            <input
+            name="file"
+            type="file"
+            className="file"
+            multiple
+            ref={fileInputRefAvatar}
+            onChange={onFileSelectAvatar}
+            onClick={uploadAvatar}
+          />
+          </>
           <img
             src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSuPA7P-_Nkehuys3wB6sS3FAdBWdhU8azhGUy6SgIDlnaHnz8OfEFqPtH-Vab8azCkavt_lIfYXgGffcN4bVRs6QtmGQRMM1ydi60f-4wIHikKIlxQgR-M4iJI6ta5lZTxgNuwY14M0g&usqp=CAc"
             alt="myAvatar"
@@ -249,7 +309,9 @@ const Dashboard = (props) => {
         <Carousel>
           {imagesData.map((image, index) => {
             let link = `/uploads/${image.name}`;
-            let content = <img className="imageCarousel" src={link} alt="imagegallery" />;
+            let content = (
+              <img className="imageCarousel" src={link} alt="imagegallery" />
+            );
             return (
               <div key={index}>
                 <Card title={image.name} content={content} />

@@ -27,12 +27,12 @@ const SignInForm= ({ onSignIn }) => {
             <form className='forms'>
     <label>
     <h2> Username </h2> 
-        <input onChange={handleChange} className='inputform' type="text" name="name" value={userDatas.username} />
+        <input style={{color:'black'}} onChange={handleChange} className='inputform' type="text" name="name" value={userDatas.username} />
     </label>
 
     <label>
         <h2> Email </h2> 
-        <input onChange={handleChange} className='inputform' type="text" name="email" value={userDatas.email}/>
+        <input style={{color:'black'}}  onChange={handleChange} className='inputform' type="text" name="email" value={userDatas.email}/>
     </label>
     <br/>
     <button className="customButton" onClick={handleClick} >Se connecter</button>
