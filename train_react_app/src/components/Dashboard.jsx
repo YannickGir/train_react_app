@@ -14,12 +14,27 @@ const Dashboard = (props) => {
     fileInputRefAvatar.current.click();
   }
 
+  const postAvatar = async (image) => {
+    try {
+      const response = await axios.post("http://localhost:8800/sendAvatar", {
+        images: image,
+      });
+      
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des données météorologiques :",
+        error
+      );
+    }
+  };
+  
+
   function uploadAvatar() {
     const formData = new FormData();
-    images.forEach((img) => {
-      console.log(img.file);
-      formData.append("file", img.file);
-    });
+   
+      console.log(avatar.file);
+      formData.append("file", avatar.file);
+    
 
     axios
       .post("http://localhost:8800/upload", formData)
@@ -30,9 +45,9 @@ const Dashboard = (props) => {
         console.error("Error uploading image", error);
       });
 
-    props.postImage(images);
-    console.log(images);
-    setImages([]);
+    postAvatar(avatar);
+    console.log(avatar);
+    setAvatar({});
     window.location.reload();
   }
 
@@ -245,7 +260,7 @@ const Dashboard = (props) => {
               "--offset": (active - i) / 3,
               "--direction": Math.sign(active - i),
               "--abs-offset": Math.abs(active - i) / 3,
-              "pointer-events": active === i ? "auto" : "none",
+              "pointerEvents": active === i ? "auto" : "none",
               opacity: Math.abs(active - i) >= MAX_VISIBILITY ? "0" : "1",
               display: Math.abs(active - i) > MAX_VISIBILITY ? "none" : "block",
             }}
@@ -279,13 +294,15 @@ const Dashboard = (props) => {
             multiple
             ref={fileInputRefAvatar}
             onChange={onFileSelectAvatar}
-            onClick={uploadAvatar}
           />
           </>
           <img
             src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSuPA7P-_Nkehuys3wB6sS3FAdBWdhU8azhGUy6SgIDlnaHnz8OfEFqPtH-Vab8azCkavt_lIfYXgGffcN4bVRs6QtmGQRMM1ydi60f-4wIHikKIlxQgR-M4iJI6ta5lZTxgNuwY14M0g&usqp=CAc"
             alt="myAvatar"
           />
+          <button type="button" onClick={uploadAvatar}>
+          Upload
+        </button>
           <p>Inscrit le : </p> 19/01/2024
         </div>
         <div className="description">
