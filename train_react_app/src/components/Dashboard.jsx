@@ -195,7 +195,7 @@ const Dashboard = (props) => {
           ))}
         </div>
         <button type="button" onClick={uploadImage}>
-          Upload
+          Choisir une image
         </button>
         <div></div>
       </div>
