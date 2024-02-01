@@ -3,6 +3,7 @@ import "../styles/dashboard.css";
 import axios from "axios";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import AvatarUploader from "./AvatarUploader";
 
 const Dashboard = (props) => {
   const [imagesData, setImagesData] = useState([]);
@@ -282,7 +283,8 @@ const Dashboard = (props) => {
       <div className="description_Wrap">
         <div className="myAvatar">
           <h2>Prénom</h2>
-          <>
+          <AvatarUploader/>
+          {/* <>
             Sélectionnez et glissez l'image ici ou {""}
             <span className="select" role="button" onClick={selectFileAvatar}>
               Parcourir
@@ -302,7 +304,7 @@ const Dashboard = (props) => {
           />
           <button type="button" onClick={uploadAvatar}>
           Upload
-        </button>
+        </button> */}
           <p>Inscrit le : </p> 19/01/2024
         </div>
         <div className="description">
