@@ -26,8 +26,23 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage: storage });
 
+  const storageAvatar = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '../train_react_app/public/uploadAvatar/'); // folder to save files
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.originalname); // to use original name of file
+    },
+  });
+  
+  const uploadAvatar = multer({ storage: storageAvatar });
+
   
 app.post('/upload', upload.single('file'), (req, res) => {
+    res.send('File uploaded!');
+  });
+  
+app.post('/uploadAvatar', uploadAvatar.single('file'), (req, res) => {
     res.send('File uploaded!');
   });
 

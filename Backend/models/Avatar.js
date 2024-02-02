@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const imageShema = new mongoose.Schema([{
+const avatarShema = new mongoose.Schema([{
     name: String,
     path:String,
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
     file: String,
 }])
 
-const ImageModel = mongoose.model('images', imageShema)
+const AvatarModel = mongoose.model('avatar', avatarShema)
 
-module.exports = ImageModel
+module.exports = AvatarModel

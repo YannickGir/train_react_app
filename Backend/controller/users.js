@@ -40,9 +40,10 @@ const logUser = async (req, res) =>{
     try { 
         const user = await UserModel.findOne({ email: req.body.email })
         if (user) {
+            console.log('emailfromlogUser:' + req.body.email);
             sharedData.setSharedEmail(req.body.email); //store email in the module sharedData
             res.status(200).json({ message: "L'utilisateur est existant et peut être connecté !" });
-            console.log(user);
+            // console.log(user);
         } 
         else {
             res.status(401).json({message:'utilisateur non autorisé'})
