@@ -7,13 +7,13 @@ const sharedData = require("./sharedData");
 
 const addAvatar = async (req, res) => {
     console.log('activation de la route addAvatar');
-    if (!req.body.avatar) {
+    if (!req.body) {
         return res.status(400).json({ error: 'Aucune donnée d\'avatar fournie.' });
     }
-    console.log('req.body.avatar.name dans route addAvatar:', req.body.avatar.name);
+    console.log('req.body.avatar.name dans route addAvatar:', req.body.name);
     try {
         const email = sharedData.getSharedEmail();
-        const avatarFromFront = req.body.avatar;
+        const avatarFromFront = req.body;
         const currentUser = await UserModel.findOne({ email: email });
         const userId = currentUser._id;
 
